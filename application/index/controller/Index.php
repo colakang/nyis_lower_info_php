@@ -3,7 +3,6 @@ namespace app\index\controller;
 
 use app\index\event\Mongodb;
 use think\Controller;
-
 class Index extends Controller
 {
 	public function index()
