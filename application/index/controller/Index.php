@@ -22,7 +22,7 @@ class Index extends Controller
 		$mongo = new Mongodb('avvo_lawyer_info','lawyers');
 		$findone = $mongo -> find($search,$cond);
 		foreach($findone as $key => $val){
-		var_dump($val);exit;
+		//var_dump($val);exit;
 			$user = $val['name'];
 			if(!empty($val['contact']['address']['city'])){
 				$city = $val['contact']['address']['city'];
