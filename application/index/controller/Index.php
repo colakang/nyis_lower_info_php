@@ -17,12 +17,13 @@ class Index extends Controller
 		foreach($array as $k => $v){
 			$arr[] = $v;
 		}
+		$education = array();
+		$associations = array();
 		$search = $arr[3];
 		$cond = $arr[0];
 		$mongo = new Mongodb('avvo_lawyer_info','lawyers');
 		$findone = $mongo -> find($search,$cond);
 		foreach($findone as $key => $val){
-		//var_dump($val);exit;
 			$user = $val['name'];
 			if(!empty($val['contact']['address']['city'])){
 				$city = $val['contact']['address']['city'];
@@ -64,7 +65,19 @@ class Index extends Controller
 			}else{
 				$state = "";
 			}
+			foreach($val['education'] as $k => $v){
+				$education[$k]['graduated']  = $v['graduated'];
+				$education[$k]['major']  	 = $v['major'];
+				$education[$k]['school_name']= $v['school_name'];
+				$education[$k]['degree']  	 = $v['degree'];
+			}
+			foreach($val['associations'] as $k => $v){
+				$associations[$k]['position_name'] = $v['position_name'];
+				$associations[$k]['association_name'] = $v['association_name'];
+				$associations[$k]['duration'] = $v['duration'];
+			}
 			$practice = implode($val['practice areas'],',');
+			//var_dump($val);exit;
 		}
 		if(!empty($user)){
 			$this->assign('user',$user);
@@ -77,6 +90,8 @@ class Index extends Controller
 			$this->assign('status',$status);
 			$this->assign('state',$state);
 			$this->assign('practice',$practice);
+			$this->assign('education',$education);
+			$this->assign('associations',$associations);
 			return $this->fetch();
 		}else{
 			return $this->error("未查询到用户信息！");
