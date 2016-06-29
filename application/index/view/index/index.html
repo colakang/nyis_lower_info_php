@@ -15,8 +15,20 @@
         	<li data-searchtype="2">城市<input type="hidden" name="add" value="2" /></li>
         	<li data-searchtype="3">邮编<input type="hidden" name="code" value="3" /></li>
         </ul>
-            <input type="text" id="search_input" name = "rea"  tabindex="1" />
+            <input type="text" id="search_input" name="rea"  tabindex="1" />
             <input type="submit" id="search_button" value="Search" />
+				
+    </form>
+</div>
+
+<div id="search_box" style="margin: 0 auto;position:absolute; top:60%; left:25%;">
+
+	<form id="search" name="search" action="/index/index/lists" method="post">
+        <ul id="searchType">
+        	<li class="type_selected">测试</li>
+        </ul>
+            <input type="text" id="search_input" name="test"  />
+            <input type="submit" id="search_button" value="搜索" />
 				
     </form>
 </div>

@@ -165,4 +165,40 @@ class Index extends Controller
 			return $this->error("未查询到用户信息！");
 		}
 	}
+	
+	
+	public function lists()
+	{
+		if(empty($_GET['page'])){
+			$test = $_POST['test'];
+			$mongo = new Mongodb('avvo_lawyer_info','lawyers');
+			$query = array("name" => new \MongoRegex("/$test.*/i"));
+			//$query = array("avvo_id" => array('$ne'=>5));
+			$lists = $mongo->collection->find($query)->sort(array('avvo_id'=>1))->limit(15);
+			foreach($lists as $k => $v){
+				$list[$k]['avvo_id'] = $v['avvo_id'];
+				$list[$k]['name'] = $v['name'];
+				$list[$k]['practice'] = implode($v['practice areas'],',');
+			}
+			arsort($list);
+			$this->assign('list',$list);
+			$this->assign('test',$test);
+		}else{
+			$page = (int)$_GET['page'];
+			$test = $_GET['test'];
+			$mongo = new Mongodb('avvo_lawyer_info','lawyers');
+			$query = array("name" => new \MongoRegex("/$test.*/i"),'avvo_id' => array('$gt'=>$page));
+			//$query = array("avvo_id" => array('$gt'=>$page));
+			$lists = $mongo->collection->find($query)->sort(array('avvo_id'=>1))->limit(15);
+			foreach($lists as $k => $v){
+				$list[$k]['avvo_id'] = $v['avvo_id'];
+				$list[$k]['name'] = $v['name'];
+				$list[$k]['practice'] = implode($v['practice areas'],',');
+			}
+			arsort($list);
+			$this->assign('list',$list);
+			$this->assign('test',$test);
+		}
+		return $this->fetch();
+	}
 }

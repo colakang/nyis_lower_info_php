@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>查看用户列表</title>
+<style type="text/css">
+table.altrowstable {
+	font-family: verdana,arial,sans-serif;
+	font-size:11px;
+	color:#333333;
+	border-width: 1px;
+	border-color: #a9c6c9;
+	border-collapse: collapse;
+}
+table.altrowstable th {
+	border-width: 1px;
+	padding: 8px;
+	border-style: solid;
+	border-color: #a9c6c9;
+}
+table.altrowstable td {
+	border-width: 1px;
+	padding: 8px;
+	border-style: solid;
+	border-color: #a9c6c9;
+}
+.oddrowcolor{
+	background-color:#d4e3e5;
+}
+.evenrowcolor{
+	background-color:#c3dde0;
+}
+</style>
+</head>
+<body>
+	<h2>查询结果</h2>
+	<table class="altrowstable" id="alternatecolor">
+		<tr>
+			<th>编 号</th>
+			<th>姓 名</th>
+			<th>领 域</th>
+			<th>操 作</th>
+		</tr>
+		<?php if(!empty($list)){ ?>
+		{volist name="list" id="list"}
+		<tr>
+			<td id="avvo_id">{$list.avvo_id}</td>
+			<td>{$list.name}</td>
+			<td>{$list.practice}</td>
+			<td><a href="#">查看详细信息</a></td>
+		</tr>
+		{/volist}
+		<?php } ?>
+		<input type="hidden" id="test" value="{$test}" />
+	</table>
+	<br/>
+	<span onclick="nextPage();"><a href="#">没有想要的结果？点击更换...</a></span>
+</body>
+<script type="text/javascript">
+	function nextPage(page){
+		var page;
+		var test;
+		page = document.getElementById("avvo_id").innerText;
+		test = document.getElementById("test").value;
+		window.location.href="/index/index/lists?page="+page+"&test="+test;
+	}
+</script>
+</html>
