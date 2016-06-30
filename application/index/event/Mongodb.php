@@ -27,8 +27,10 @@ class Mongodb
 				return $this->collection->find($query)->limit(1);
 			}else if($cond == 2){
 				return $this->collection->find(array("contact.address.city" => "$search"))->limit(1);
-			}else{
+			}else if($cond == 3){
 				return $this->collection->find(array("contact.address.zipcode" => "$search"))->limit(1);
+			}else{
+				return $this->collection->find(array("avvo_id" => (int)$search));
 			}
 		}else{
 			return $this->collection->find()->limit(1);

@@ -12,10 +12,17 @@ class Index extends Controller
 	
 	public function find()
 	{
-		$array = $_POST;
-		$arr = "";
-		foreach($array as $k => $v){
-			$arr[] = $v;
+		if(empty($_GET['avvo_id'])){
+			$array = $_POST;
+			$arr = "";
+			foreach($array as $k => $v){
+				$arr[] = $v;
+			}
+			$search = $arr[3];
+			$cond = $arr[0];
+		}else{
+			$search = $_GET['avvo_id'];
+			$cond = 4;
 		}
 		$education = array();
 		$associations = array();
@@ -24,8 +31,6 @@ class Index extends Controller
 		$legal_cases = array();
 		$publications = array();
 		$speaking_engagements = array();
-		$search = $arr[3];
-		$cond = $arr[0];
 		$mongo = new Mongodb('avvo_lawyer_info','lawyers');
 		$findone = $mongo -> find($search,$cond);
 		foreach($findone as $key => $val){
@@ -106,7 +111,7 @@ class Index extends Controller
 			}
 			if(!empty($val['legal_cases'])){
 				foreach($val['legal_cases'] as $k => $v){
-					$legal_cases[$k]['outcome']     = $v['outcome'];
+					$legal_cases[$k]['outcome']   = $v['outcome'];
 					$legal_cases[$k]['case_name'] = $v['case_name'];
 				}
 			}
@@ -177,7 +182,7 @@ class Index extends Controller
 			$lists = $mongo->collection->find($query)->sort(array('avvo_id'=>1))->limit(15);
 			foreach($lists as $k => $v){
 				$list[$k]['avvo_id'] = $v['avvo_id'];
-				$list[$k]['name'] = $v['name'];
+				$list[$k]['name']    = $v['name'];
 				if(!empty($v['practice areas'])){
 					$list[$k]['practice'] = implode($v['practice areas'],',');
 				}else{
@@ -196,7 +201,7 @@ class Index extends Controller
 			$lists = $mongo->collection->find($query)->sort(array('avvo_id'=>1))->limit(15);
 			foreach($lists as $k => $v){
 				$list[$k]['avvo_id'] = $v['avvo_id'];
-				$list[$k]['name'] = $v['name'];
+				$list[$k]['name']    = $v['name'];
 				if(!empty($v['practice areas'])){
 					$list[$k]['practice'] = implode($v['practice areas'],',');
 				}else{
