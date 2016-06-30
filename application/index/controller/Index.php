@@ -178,7 +178,11 @@ class Index extends Controller
 			foreach($lists as $k => $v){
 				$list[$k]['avvo_id'] = $v['avvo_id'];
 				$list[$k]['name'] = $v['name'];
-				$list[$k]['practice'] = implode($v['practice areas'],',');
+				if(!empty($v['practice areas'])){
+					$list[$k]['practice'] = implode($v['practice areas'],',');
+				}else{
+					$list[$k]['practice'] = "";
+				}
 			}
 			arsort($list);
 			$this->assign('list',$list);
@@ -193,7 +197,11 @@ class Index extends Controller
 			foreach($lists as $k => $v){
 				$list[$k]['avvo_id'] = $v['avvo_id'];
 				$list[$k]['name'] = $v['name'];
-				$list[$k]['practice'] = implode($v['practice areas'],',');
+				if(!empty($v['practice areas'])){
+					$list[$k]['practice'] = implode($v['practice areas'],',');
+				}else{
+					$list[$k]['practice'] = "";
+				}
 			}
 			arsort($list);
 			$this->assign('list',$list);
