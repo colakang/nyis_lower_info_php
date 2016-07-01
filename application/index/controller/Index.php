@@ -129,7 +129,11 @@ class Index extends Controller
 					$speaking_engagements[$k]['title'] 			 = $v['title'];
 				}
 			}
-			$practice = implode($val['practice areas'],',');
+			if(!empty($val['practice areas'])){
+				$practice = implode($val['practice areas'],',');
+			}else{
+				$practice = "";
+			}
 			//var_dump($val);exit;
 		}
 		if(!empty($user)){
