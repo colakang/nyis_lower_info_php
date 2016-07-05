@@ -134,7 +134,6 @@ class Index extends Controller
 			}else{
 				$practice = "";
 			}
-			//var_dump($val);exit;
 		}
 		if(!empty($user)){
 			$this->assign('user',$user);
@@ -182,7 +181,6 @@ class Index extends Controller
 			$test = $_POST['test'];
 			$mongo = new Mongodb('avvo_lawyer_info','lawyers');
 			$query = array("name" => new \MongoRegex("/$test.*/i"));
-			//$query = array("avvo_id" => array('$ne'=>5));
 			$lists = $mongo->collection->find($query)->sort(array('avvo_id'=>1))->limit(15);
 			foreach($lists as $k => $v){
 				$list[$k]['avvo_id'] = $v['avvo_id'];
@@ -201,7 +199,6 @@ class Index extends Controller
 			$test = $_GET['test'];
 			$mongo = new Mongodb('avvo_lawyer_info','lawyers');
 			$query = array("name" => new \MongoRegex("/$test.*/i"),'avvo_id' => array('$gt'=>$page));
-			//$query = array("avvo_id" => array('$gt'=>$page));
 			$lists = $mongo->collection->find($query)->sort(array('avvo_id'=>1))->limit(15);
 			foreach($lists as $k => $v){
 				$list[$k]['avvo_id'] = $v['avvo_id'];

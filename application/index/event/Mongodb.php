@@ -22,15 +22,20 @@ class Mongodb
      */
 	public function find($search,$cond){
 		if(!empty($search)){
-			if($cond == 1){
-				$query = array("name" => new \MongoRegex("/$search.*/i"));
-				return $this->collection->find($query)->limit(1);
-			}else if($cond == 2){
-				return $this->collection->find(array("contact.address.city" => "$search"))->limit(1);
-			}else if($cond == 3){
-				return $this->collection->find(array("contact.address.zipcode" => "$search"))->limit(1);
-			}else{
-				return $this->collection->find(array("avvo_id" => (int)$search));
+			switch($cond)
+			{
+				case 1:
+					$query = array("name" => new \MongoRegex("/$search.*/i"));
+					return $this->collection->find($query)->limit(1);
+				break;
+				case 2:
+					return $this->collection->find(array("contact.address.city" => "$search"))->limit(1);
+				break;
+				case 3:
+					return $this->collection->find(array("contact.address.zipcode" => "$search"))->limit(1);
+				break;
+				default:
+					return $this->collection->find(array("avvo_id" => (int)$search));
 			}
 		}else{
 			return $this->collection->find()->limit(1);
