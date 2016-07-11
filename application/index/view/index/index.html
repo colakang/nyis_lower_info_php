@@ -1,37 +1,266 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html>
 <head>
-<link rel="stylesheet" type="text/css" href="/static/css/style.css"/>
-<script type="text/javascript" src="/static/js/jquery.1.10.1.min.js"></script>
-<script type="text/javascript" src="/static/js/jquery.lib.min.js"></script>
-<script type="text/javascript" src="/static/js/search.min.js"></script>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <title>NYIS</title>
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+  <link rel="stylesheet" href="/static/css/bootstrap.min.css"/>
+  <link rel="stylesheet" href="/static/css/font-awesome.min.css"/>
+  <link rel="stylesheet" href="/static/css/style.css"/>
+  <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Open Sans">
+  <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Lato">
+
+  <script type="text/javascript" src="/static/js/jquery.js"></script>
+  <script type="text/javascript" src="/static/js/bootstrap.min.js"></script>
+
 </head>
 <body>
-<div id="search_box" style="margin: 0 auto;position:absolute; top:40%; left:25%;">
+<nav class="navbar navbar-a navbar-fixed-top">
+  <div class="container">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+              data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="https://www.nyis.com/"><img src="/static/images/logo.png" alt=""></a>
+    </div>
 
-	<form id="search" name="search" action="/index/index/find" method="post">
-        <ul id="searchType">
-        	<li data-searchtype="1" class="type_selected">姓名<input type="hidden" name="name" value="1" /></li>
-        	<li data-searchtype="2">城市<input type="hidden" name="add" value="2" /></li>
-        	<li data-searchtype="3">邮编<input type="hidden" name="code" value="3" /></li>
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <div class="navbar-right">
+        <ul class="nav navbar-nav">
+          <li><a href="https://www.nyis.com/">服务商城</a></li>
+          <li><a href="https://nyislawfirm.com/">小纽问答</a></li>
+          <li><a href="http://ask.nyis.com/">律师大全</a></li>
         </ul>
-            <input type="text" id="search_input" name="rea"  tabindex="1" />
-            <input type="submit" id="search_button" value="Search" />
-				
-    </form>
+        <a href="http://ask.nyis.com/login?to=" class="btn navbar-btn btn-info">登录</a>
+        <a href="http://ask.nyis.com/register?to=" class="btn navbar-btn btn-a1">注册</a>
+        <!--<div class="tel"><span>客服咨询热线</span> <br> 1-800-685-NYIS(6947)</div>-->
+      </div>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+<!-- banner -->
+
+<header id="banner4">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-10 col-md-offset-1">
+        <div class="m-hi" style="padding-top: 260px;">
+          <h1>找个律师吧</h1>
+          <br>
+          <br>
+        </div>
+        <form action="/index/index/search_result" class="form-inline" method="get">
+          <input type="text" name="param1" style="display: none" class="input-for-datalist" value="name">
+          <div style="text-align: center">
+            <div class="form-group">
+              <div class="input-group">
+                <div class="input-group-btn">
+                  <button type="button" class="btn btn-default dropdown-toggle input-lg btn-choice"
+                          data-toggle="dropdown"
+                          aria-haspopup="true" aria-expanded="false">
+                    <span class="choices">律师姓名</span> <span class="caret"></span>
+                  </button>
+                  <ul class="dropdown-menu search-choices">
+                    <li><a href="#">律师姓名</a></li>
+                    <li><a href="#">从业领域</a></li>
+                  </ul>
+                </div>
+                <input type="text" class="form-control input-lg search-input-choice" name="param2" placeholder="律师姓名" autocomplete="off">
+              </div>
+            </div>
+            <div class="form-group">
+              <input type="text" class="form-control input-lg" name="param3" placeholder="所在州" autocomplete="off">
+            </div>
+            <div class="form-group">
+              <button type="submit" id="btn-slide1" class="btn btn-info1 btn-lg">搜索</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="icon-container text-center">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4 single-icon-container">
+        <img src="/static/images/lawyer-icon-1.png">
+        <h5><strong>律师覆盖全美</strong></h5>
+      </div>
+      <div class="col-md-4 single-icon-container">
+        <img src="/static/images/lawyer-icon-2.png">
+        <h5><strong>信息完整准确</strong></h5>
+      </div>
+      <div class="col-md-4 single-icon-container">
+        <img src="/static/images/lawyer-icon-3.png">
+        <h5><strong>用户真实体验</strong></h5>
+      </div>
+    </div>
+  </div>
 </div>
 
-<div id="search_box" style="margin: 0 auto;position:absolute; top:60%; left:25%;">
-
-	<form id="search" name="search" action="/index/index/lists" method="post">
-        <ul id="searchType">
-        	<li class="type_selected">测试</li>
-        </ul>
-            <input type="text" id="search_input" name="test"  />
-            <input type="submit" id="search_button" value="搜索" />
-				
-    </form>
+<div class="container text-center content-container">
+  <div class="row">
+    <div class="col-md-4 thumbnail-container">
+      <a href="#">
+        <div class="thumbnail-1st" style="background-image: url('/static/images/categori/business.jpg')">
+          <h1 class="middle-caption high-contrast">商业</h1>
+        </div>
+      </a>
+    </div>
+    <div class="col-md-4 thumbnail-container">
+      <a href="#">
+        <div class="thumbnail-1st" style="background-image: url('/static/images/categori/family.jpg')">
+          <h1 class="middle-caption high-contrast">家庭</h1>
+        </div>
+      </a>
+    </div>
+    <div class="col-md-4 thumbnail-container">
+      <a href="#">
+        <div class="thumbnail-1st" style="background-image: url('/static/images/categori/immigration.jpg')">
+          <h1 class="middle-caption high-contrast">移民</h1>
+        </div>
+      </a>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-4 thumbnail-container">
+      <a href="#">
+        <div class=" thumbnail-2nd" style="background-image: url('/static/images/categori/criminal.jpg')">
+          <h1 class="middle-caption high-contrast">刑事</h1>
+        </div>
+      </a>
+    </div>
+    <div class="col-md-4 thumbnail-container">
+      <a href="#">
+        <div class=" thumbnail-2nd" style="background-image: url('/static/images/categori/transportation-1.jpg')">
+          <h1 class="middle-caption high-contrast">交通</h1>
+        </div>
+      </a>
+    </div>
+    <div class="col-md-4 thumbnail-container">
+      <a href="#">
+        <div class=" thumbnail-2nd" style="background-image: url('/static/images/categori/labor.jpg')">
+          <h1 class="middle-caption high-contrast">劳工</h1>
+        </div>
+      </a>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-4 thumbnail-container">
+      <a href="#">
+        <div class=" thumbnail-2nd" style="background-image: url('/static/images/categori/landlord.jpg')">
+          <h1 class="middle-caption high-contrast">地产</h1>
+        </div>
+      </a>
+    </div>
+    <div class="col-md-4 thumbnail-container">
+      <a href="#">
+        <div class=" thumbnail-2nd" style="background-image: url('/static/images/categori/rent.jpg')">
+          <h1 class="middle-caption high-contrast">租赁</h1>
+        </div>
+      </a>
+    </div>
+    <div class="col-md-4 thumbnail-container">
+      <a href="#">
+        <div class=" thumbnail-2nd" style="background-image: url('/static/images/categori/bankruptcy.jpg')">
+          <h1 class="middle-caption high-contrast">破产</h1>
+        </div>
+      </a>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-2 col-md-offset-5">
+      <a href="#" class="btn btn-default btn-block"><h4>更多领域</h4></a>
+    </div>
+  </div>
 </div>
+
+<div id="footer">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4">
+        <div class="contact">
+
+
+          <div class="tel">
+            <div class="footer-icon footer-icon1">
+              <img src="/static/images/footer-icon1.png" height="45" width="45">
+            </div>
+            <p>客服咨询热线</p>
+            <p class="phone">1-800-685-NYIS(6947)</p>
+          </div>
+
+          <div class="ask">
+            <div class="footer-icon footer-icon2">
+              <img src="/static/images/footer-icon2.png" height="45" width="45">
+            </div>
+            <p>邮箱</p>
+            <p class="website"><a href="mailto:info@nyis.com">info@nyis.com</a></p>
+          </div>
+
+          <div class="weibo">
+            <div class="footer-icon footer-icon3">
+              <img src="/static/images/footer-icon3.png" height="45" width="45">
+            </div>
+            <p>微博</p>
+            <p class="account"><a href="weibo.com/newyorkis">@小纽美国法律咨询</a></p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+      </div>
+      <div class="col-md-2 text-right i-eq">
+        <span><img src="/static/images/eq1.png" height="130" width="130" alt=""><em>客服平台<br>asknyis</em></span>
+      </div>
+      <div class="col-md-2 text-right i-eq">
+        <span><img src="/static/images/eq2.png" height="130" width="130" alt=""><em>公众平台<br>newyork_is</em></span>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12 legal">
+        <p class="copy">© Copyright 2015 NYIS ALL RIGHTS RESERVED</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  $(document).ready(function () {
+    $(".input-for-datalist").val("name");
+    $('.search-choices li a').click(function () {
+      $(".btn-choice .choices").text($(this).text());
+      $(".search-input-choice").attr("placeholder", $(this).text());
+      if ($(this).text() == "律师姓名") {
+        $(".input-for-datalist").val('name');
+      }
+      else {
+        $(".input-for-datalist").val('practice areas');
+      }
+    });
+  });
+</script>
 
 </body>
-</html>	
+</html>
+<!-- 右侧浮动 -->
+<!-- 暂时不要
+<div id="fixbtn">
+    <a href="" class="i1"></a>
+    <a href=""class="i2"></a>
+</div>
+
+<p>工作日 10:00 - 19:00</p>
+<p><a href="" class="btn btn-o btn-sm">在线客服</a></p>
+-->
