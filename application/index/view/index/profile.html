@@ -3,77 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <title>lawyer profile</title>
-  <link rel="stylesheet" href="/static/css/bootstrap.min.css"/>
-  <link rel="stylesheet" href="/static/css/font-awesome.min.css"/>
-  <link rel="stylesheet" href="/static/css/style.css"/>
-  <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Open Sans">
-  <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Lato">
 
-  <script type="text/javascript" src="/static/js/jquery.js"></script>
-  <script type="text/javascript" src="/static/js/bootstrap.min.js"></script>
+	{include file="index/head_source" /}
 </head>
 <body>
-<nav class="navbar navbar-a navbar-static-top">
-  <div class="container">
-    <!-- Brand and toggle get grouped for better mobile display -->
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
-              data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a class="navbar-brand" href="https://www.nyis.com/"><img src="/static/images/logo.png" alt=""></a>
-    </div>
+	<!-- banner -->
+	{include file="index/banner" /}
+	<!-- End banner -->
 
-    <!-- Collect the nav links, forms, and other content for toggling -->
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-      <div class="navbar-right">
-        <ul class="nav navbar-nav">
-          <li><a href="https://www.nyis.com/">服务商城</a></li>
-          <li><a href="http://ask.nyis.com/">小纽问答</a></li>
-          <li><a href="http://lawyer.nyis.com/">律师大全</a></li>
-        </ul>
-        <a href="http://ask.nyis.com/login?to=" class="btn navbar-btn btn-info">登录</a>
-        <a href="http://ask.nyis.com/register?to=" class="btn navbar-btn btn-a1">注册</a>
-        <!--<div class="tel"><span>客服咨询热线</span> <br> 1-800-685-NYIS(6947)</div>-->
-      </div>
-    </div><!-- /.navbar-collapse -->
-  </div><!-- /.container-fluid -->
-</nav>
-<!--搜索框-->
-<div class="search-head container">
-  <form action="/index/index/search_result" class="form-inline" method="get">
-    <input type="text" name="param1" style="display: none" class="input-for-datalist" value="name">
-    <div style="text-align: center">
-      <div class="form-group">
-        <div class="input-group">
-          <div class="input-group-btn">
-            <button type="button" class="btn btn-default dropdown-toggle input-lg btn-choice"
-                    data-toggle="dropdown"
-                    aria-haspopup="true" aria-expanded="false">
-              <span class="choices">律师姓名</span> <span class="caret"></span>
-            </button>
-            <ul class="dropdown-menu search-choices">
-              <li><a href="#">律师姓名</a></li>
-              <li><a href="#">从业领域</a></li>
-            </ul>
-          </div>
-          <input type="text" class="form-control input-lg search-input-choice" name="param2" placeholder="律师姓名"
-                 autocomplete="off">
-        </div>
-      </div>
-      <div class="form-group">
-        <input type="text" class="form-control input-lg" name="param3" placeholder="所在州" autocomplete="off">
-      </div>
-      <div class="form-group">
-        <button type="submit" id="btn-slide1" class="btn btn-info1 btn-lg">搜索</button>
-      </div>
-    </div>
-  </form>
-</div>
-<!-- banner -->
 <header style="background-image: url('/static/images/banner4.jpg')" class="profile-header">
 </header>
 <div class="profile-container">
@@ -90,7 +27,7 @@
             <i class="glyphicon glyphicon-phone-alt"></i> {$phone}
           </div>
         </div>
-        <p>{$city}</p>
+        <p>{$city},{$state},{$zipcode}</p>
         <div class="practice-area-collection" style="margin-left: 0">
           <ul>
             <!-- <li class="practice-area-badge">移民</li>
@@ -353,78 +290,11 @@
     </div>
   </div>
 </div>
-<div id="footer">
-  <div class="container">
-    <div class="row">
-      <div class="col-md-4">
-        <div class="contact">
-          <div class="ask">
-            <div class="footer-icon footer-icon1">
-              <img src="/static/images/footer-icon1.png" height="45" width="45">
-            </div>
-            <p>客服咨询热线</p>
-            <p class="phone">1-800-685-NYIS(6947)</p>
-          </div>
-          <div class="ask">
-            <div class="footer-icon footer-icon2">
-              <img src="/static/images/footer-icon2.png" height="45" width="45">
-            </div>
-            <p>邮箱</p>
-            <p class="website"><a href="mailto:info@nyis.com">info@nyis.com</a></p>
-          </div>
-          <div class="weibo">
-            <a href="http://weibo.com/newyorkis"><img src="/static/images/footer-icon3.png" height="45" width="45"></a>
 
-            <a href="https://www.facebook.com/asknyis"> <img src="https://lh3.googleusercontent.com/-gmpYY4_B-VA/V0jDnUAHxVI/AAAAAAAADI8/5YMQoSRZWb4GvSiCwrBwSD_BkcZA1RbnwCCo/s188/face-01.png" height="45" width="45" padding-left="5" padding-right="5"></a>
+	<!-- footer -->
+	{include file="index/footer" /}
+	<!-- End footer -->
 
-            <a href="https://twitter.com/ask_nyis">  <img src="https://lh3.googleusercontent.com/-iidUpEF9KJM/V0jDnyZ_KaI/AAAAAAAADJA/FwYqbtAWYakCk_0Uk5KHKApy-4D1nMU1gCCo/s188/twitter-01.png" height="45" width="45"></a>
-
-          </div>
-        </div>
-      </div>
-      <div class="col-md-4">
-        <div class="contact">
-          <div class="ask">
-            <div class="footer-icon footer-icon1">
-              <img
-                  src="https://lh3.googleusercontent.com/-g04vBmBoN_I/VwfifcGSTlI/AAAAAAAACt4/13HkFjoRGGMcHYIhe0YeLnCd1hh6uZnHgCCo/s188-Ic42/footer-icon4-01.png"
-                  height="45" width="45">
-            </div>
-            <p>点此签署</p>
-            <p class="website"><a href="https://rightsignature.com/forms/--d9feba/token/4ccaddb9403">微信文章转载协议</a></p>
-          </div>
-          <div class="ask">
-            <div class="footer-icon footer-icon2">
-              <img
-                  src="https://lh3.googleusercontent.com/-GHrhegSJZTA/VzIysPiTCFI/AAAAAAAADAE/xHeLjLW6ChIpRB8cYT_4L7VZ0fq8FCM-wCCo/s188/student-01.png"
-                  height="45" width="45">
-            </div>
-            <p>点击查看</p>
-            <p class="account"><a href="https://www.nyis.com/ambassador/">NYIS校园大使</a></p>
-          </div>
-          <div class="weibo">
-            <div class="footer-icon footer-icon3">
-
-            </div>
-            <p></p>
-            <p class="account"><a href="#"></a></p>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-2 text-right i-eq">
-        <span><img src="/static/images/eq1.png" height="130" width="130" alt=""><em>客服平台<br>asknyis</em></span>
-      </div>
-      <div class="col-md-2 text-right i-eq">
-        <span><img src="/static/images/eq2.png" height="130" width="130" alt=""><em>公众平台<br>newyork_is</em></span>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-md-12 legal">
-        <p class="copy">© Copyright 2016 NYIS ALL RIGHTS RESERVED</p>
-      </div>
-    </div>
-  </div>
-</div>
 <script>
   $(document).ready(function () {
     $(".input-for-datalist").val("name");

@@ -1,0 +1,63 @@
+<nav class="navbar navbar-a navbar-static-top">
+  <div class="container">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+              data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="https://www.nyis.com/"><img src="/static/images/logo.png" alt=""></a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <div class="navbar-right">
+        <ul class="nav navbar-nav">
+          <li><a href="https://www.nyis.com/">服务商城</a></li>
+          <li><a href="http://ask.nyis.com/">小纽问答</a></li>
+          <li><a href="http://lawyer.nyis.com/">律师大全</a></li>
+        </ul>
+        <a href="http://ask.nyis.com/login?to=" class="btn navbar-btn btn-info">登录</a>
+        <a href="http://ask.nyis.com/register?to=" class="btn navbar-btn btn-a1">注册</a>
+        <!--<div class="tel"><span>客服咨询热线</span> <br> 1-800-685-NYIS(6947)</div>-->
+      </div>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+<!--搜索框-->
+<div class="search-head container">
+  <form action="/index/index/search_result" class="form-inline" method="get">
+    <input type="text" name="param1" style="display: none" class="input-for-datalist" value="name">
+    <div style="text-align: center">
+      <div class="form-group">
+        <div class="input-group">
+          <div class="input-group-btn">
+            <button type="button" class="btn btn-default dropdown-toggle input-lg btn-choice"
+                    data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">
+              <span class="choices">律师姓名</span> <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu search-choices">
+              <li><a href="#">律师姓名</a></li>
+              <li><a href="#">从业领域</a></li>
+            </ul>
+          </div>
+          <input type="text" class="form-control input-lg search-input-choice" name="param2" placeholder="律师姓名"
+                 autocomplete="off">
+        </div>
+      </div>
+      <div class="form-group">
+        <input type="text" class="form-control input-lg" name="param3" placeholder="所在州" autocomplete="off">
+      </div>
+      <div class="form-group">
+        <button type="submit" id="btn-slide1" class="btn btn-info1 btn-lg">搜索</button>
+      </div>
+    </div>
+  </form>
+</div>
+
+
+

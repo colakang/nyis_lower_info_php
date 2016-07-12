@@ -1,53 +1,18 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-  <title>NYIS</title>
-  <meta name="description" content="">
-  <meta name="keywords" content="">
-  <link rel="stylesheet" href="/static/css/bootstrap.min.css"/>
-  <link rel="stylesheet" href="/static/css/font-awesome.min.css"/>
-  <link rel="stylesheet" href="/static/css/style.css"/>
-  <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Open Sans">
-  <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Lato">
-
-  <script type="text/javascript" src="/static/js/jquery.js"></script>
-  <script type="text/javascript" src="/static/js/bootstrap.min.js"></script>
-
+  	<meta charset="utf-8">
+   	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+   	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+   	<title>NYIS</title>
+   	<meta name="description" content="">
+   	<meta name="keywords" content="">
+	{include file="index/head_source" /}
 </head>
 <body>
-<nav class="navbar navbar-a navbar-fixed-top">
-  <div class="container">
-    <!-- Brand and toggle get grouped for better mobile display -->
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
-              data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a class="navbar-brand" href="https://www.nyis.com/"><img src="/static/images/logo.png" alt=""></a>
-    </div>
-
-    <!-- Collect the nav links, forms, and other content for toggling -->
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-      <div class="navbar-right">
-        <ul class="nav navbar-nav">
-          <li><a href="https://www.nyis.com/">服务商城</a></li>
-          <li><a href="http://ask.nyis.com/">小纽问答</a></li>
-          <li><a href="http://lawyer.nyis.com/">律师大全</a></li>
-        </ul>
-        <a href="http://ask.nyis.com/login?to=" class="btn navbar-btn btn-info">登录</a>
-        <a href="http://ask.nyis.com/register?to=" class="btn navbar-btn btn-a1">注册</a>
-        <!--<div class="tel"><span>客服咨询热线</span> <br> 1-800-685-NYIS(6947)</div>-->
-      </div>
-    </div><!-- /.navbar-collapse -->
-  </div><!-- /.container-fluid -->
-</nav>
-<!-- banner -->
+	<!-- banner -->
+	{include file="index/banner_index" /}
+	<!-- End banner -->
 
 <header id="banner4">
   <div class="container">
@@ -186,56 +151,9 @@
   </div>
 </div>
 
-<div id="footer">
-  <div class="container">
-    <div class="row">
-      <div class="col-md-4">
-        <div class="contact">
-
-
-          <div class="tel">
-            <div class="footer-icon footer-icon1">
-              <img src="/static/images/footer-icon1.png" height="45" width="45">
-            </div>
-            <p>客服咨询热线</p>
-            <p class="phone">1-800-685-NYIS(6947)</p>
-          </div>
-
-          <div class="ask">
-            <div class="footer-icon footer-icon2">
-              <img src="/static/images/footer-icon2.png" height="45" width="45">
-            </div>
-            <p>邮箱</p>
-            <p class="website"><a href="mailto:info@nyis.com">info@nyis.com</a></p>
-          </div>
-
-          <div class="weibo">
-            <div class="footer-icon footer-icon3">
-              <img src="/static/images/footer-icon3.png" height="45" width="45">
-            </div>
-            <p>微博</p>
-            <p class="account"><a href="weibo.com/newyorkis">@小纽美国法律咨询</a></p>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-md-4">
-      </div>
-      <div class="col-md-2 text-right i-eq">
-        <span><img src="/static/images/eq1.png" height="130" width="130" alt=""><em>客服平台<br>asknyis</em></span>
-      </div>
-      <div class="col-md-2 text-right i-eq">
-        <span><img src="/static/images/eq2.png" height="130" width="130" alt=""><em>公众平台<br>newyork_is</em></span>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-md-12 legal">
-        <p class="copy">© Copyright 2016 NYIS ALL RIGHTS RESERVED</p>
-      </div>
-    </div>
-  </div>
-</div>
-
+	<!-- footer -->
+	{include file="index/footer_index" /}
+	<!-- End footer -->
 <script>
   $(document).ready(function () {
     $(".input-for-datalist").val("name");
