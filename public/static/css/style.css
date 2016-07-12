@@ -30,7 +30,7 @@ h3{
     background: #5c9dc0;
     padding: 35px 0;
 }
-.form-control,.btn,input { border-radius: 2px;}
+.form-control,.btn,input { border-radius: 2px; color: #000000}
 .btn-info, .btn-info:visited, .btn-info:focus {
     border: 1px solid #6cb557;
     color: #fff;
@@ -563,9 +563,15 @@ background-size: cover;
 
 .rc-info-container{
     position: relative;
-    height: 280px;
+    height: 300px;
     padding: 10px 0 10px 0;
     background-color: white;
+}
+
+@media (max-width: 991px) {
+    .rc-info-container{
+        margin-bottom: 5px;
+    }
 }
 
 .rc-info-text{
@@ -588,14 +594,17 @@ background-size: cover;
 }
 
 .fa-star{
-    color: yellow;
+    color: #FEB902;
 }
 .practice-area-collection{
-    margin: 0 40px 0 40px;
+    margin: 0 40px 0 10px;
 }
 
 .practice-area-collection ul{
     padding: 0;
+}
+.practice-area-badge{
+    margin: 1px 1px 1px 0;
 }
 
 .search-result-list ul{
@@ -712,4 +721,69 @@ table{
 }
 th{
     font-weight: normal;
+}
+.tt-menu{
+    text-align: left;
+    position: absolute;
+    left: 0!important;
+    right: 0!important;
+    min-width: 175px;
+    margin-top: 2px;
+    padding: 8px 0;
+    background-color: #FFF;
+    border: 1px solid #D0D0D0;
+    border: 1px solid rgba(0,0,0,.15);
+    border-radius: 0;
+    box-shadow: 0 2px 4px rgba(0,0,0,.2);
+}
+.tt-suggestion {
+    padding: 3px 12px 4px;
+    font-size: 16px;
+    line-height: 24px
+}
+.tt-suggestion.tt-cursor,.tt-suggestion.tt-selectable:hover {
+    color: #FFF;
+    background-color: #4F99C6;
+    cursor: pointer
+}
+
+.modal-dialog{
+    margin:200px auto;
+}
+
+.modal-content{
+    border-radius: 0;
+}
+.modal-header{
+    border-bottom: none;
+}
+.modal-footer{
+    width: 200px;
+    margin: auto;
+    border-top: none;
+}
+textarea.comment-box{
+    height: 200px;
+}
+
+.modal-dialog{
+    width: 1024px;
+}
+.modal-container{
+    width: 900px;
+    margin: 10px auto;
+}
+.login-form{
+    padding:0 30px;
+}
+.sign-up-form{
+    padding: 0 30px;
+    background-color: #3d5a98;
+}
+.modal-input-group-addon{
+    background-color: transparent;
+    border-radius: 0;
+}
+.modal-input{
+    border-radius: 0;
 }
