@@ -28,22 +28,12 @@
           <div style="text-align: center">
             <div class="form-group">
               <div class="input-group">
-                <div class="input-group-btn">
-                  <button type="button" class="btn btn-default dropdown-toggle input-lg btn-choice"
-                          data-toggle="dropdown"
-                          aria-haspopup="true" aria-expanded="false">
-                    <span class="choices">律师姓名</span> <span class="caret"></span>
-                  </button>
-                  <ul class="dropdown-menu search-choices">
-                    <li><a href="#">律师姓名</a></li>
-                    <li><a href="#">从业领域</a></li>
-                  </ul>
-                </div>
-                <input type="text" class="form-control input-lg search-input-choice" name="param2" placeholder="律师姓名" autocomplete="off">
+
+                <input type="text" class="form-control input-lg search-input-choice" name="param2" placeholder='"H1B" – or – "John Smith"' autocomplete="off">
               </div>
             </div>
             <div class="form-group">
-              <input type="text" class="form-control input-lg" name="param3" placeholder="所在州" autocomplete="off">
+              <input type="text" class="form-control input-lg" name="param3" placeholder='"New York" - or - "CA"' autocomplete="off">
             </div>
             <div class="form-group">
               <button type="submit" id="btn-slide1" class="btn btn-info1 btn-lg">搜索</button>
@@ -151,24 +141,75 @@
   </div>
 </div>
 
+<!-- login modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title text-center">登陆 | 注册</h4>
+      </div>
+      <div class="modal-container">
+        <div class="row">
+          <div class="col-xs-6 login-form">
+            <h3>用户登录</h3>
+            <br>
+            <form action="" class="form-horizontal">
+              <div class="input-group">
+                <span class="input-group-addon modal-input-group-addon"><i class="fa fa-envelope-o"></i> </span>
+                <input type="text" class="form-control modal-input" placeholder="用户名" aria-describedby="basic-addon1">
+              </div>
+              <br>
+              <div class="input-group">
+                <span class="input-group-addon modal-input-group-addon"><i class="fa fa-key"></i> </span>
+                <input type="text" class="form-control modal-input" placeholder="密码" aria-describedby="basic-addon1">
+              </div>
+              <br>
+              <br>
+              <br>
+              <div class="row">
+                <div class="col-xs-8">
+                  <input type="checkbox">记住我
+                  <p>忘记密码</p>
+                </div>
+                <div class="col-xs-4">
+                  <button type="submit" class="btn btn-primary" style="float:right">登录</button>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="col-xs-6 sign-up-form">
+            <h3 class="high-contrast">还不是会员?</h3>
+            <form action="" class="form-horizontal">
+
+              <input type="text" class="form-control modal-input" placeholder="用户名" aria-describedby="basic-addon1">
+
+              <br>
+
+              <input type="text" class="form-control modal-input" placeholder="密码" aria-describedby="basic-addon1">
+
+              <br>
+
+              <input type="text" class="form-control modal-input" placeholder="确认密码" aria-describedby="basic-addon1">
+
+              <br>
+              <div class="row">
+                <button type="submit" class="btn btn-primary" style="float:right;background-color:white">注册</button>
+              </div>
+              <br>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
 	<!-- footer -->
 	{include file="index/footer_index" /}
 	<!-- End footer -->
-<script>
-  $(document).ready(function () {
-    $(".input-for-datalist").val("name");
-    $('.search-choices li a').click(function () {
-      $(".btn-choice .choices").text($(this).text());
-      $(".search-input-choice").attr("placeholder", $(this).text());
-      if ($(this).text() == "律师姓名") {
-        $(".input-for-datalist").val('name');
-      }
-      else {
-        $(".input-for-datalist").val('practice areas');
-      }
-    });
-  });
-</script>
 
 </body>
 </html>

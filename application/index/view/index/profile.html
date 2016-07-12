@@ -101,22 +101,22 @@
     <br>
     <a href="#" class="btn btn-default btn-customized" data-toggle="modal" data-target="#myModal">写点评</a>
     <br>
-    <ul class="review-list">
+        <ul class="review-list">
       <li class="col-md-10 col-md-offset-1">
         <div>
           <div class="col-md-4" style="text-align: left">
             <div>
-            <i class="fa fa-star"></i>
-            <i class="fa fa-star"></i>
-            <i class="fa fa-star"></i>
-            <i class="fa fa-star"></i>
-            <i class="fa fa-star"></i>
+              <i class="fa fa-star"></i>
+              <i class="fa fa-star"></i>
+              <i class="fa fa-star"></i>
+              <i class="fa fa-star"></i>
+              <i class="fa fa-star"></i>
             </div>
-            <h4>由<span>小丸子</span></h4>
+            <h4>由 <span>小丸子</span></h4>
             <h4>发布于 <span>07-21-2015</span></h4>
           </div>
           <div class="col-md-8" style="text-align: left">
-            <h4>Chang律师帮我拜托了该不该发生的问题麻烦，他关心他的客户，并不会休息，知道正义得到伸张。他是非常有益和友好和有这样一个惊人的内心</h4>
+            <h4><span>Chang</span>律师帮我摆脱了不该发生问题与麻烦,她很关心客户,时刻工作。她就是这样一个友好,敬业,专业的律师</h4>
           </div>
         </div>
       </li>
@@ -130,11 +130,12 @@
               <i class="fa fa-star"></i>
               <i class="fa fa-star"></i>
             </div>
-            <h4>由<span>小丸子</span></h4>
-            <h4>发布于 <span>07-21-2015</span></h4>
+            <h4>由 <span>花轮同学</span></h4>
+            <h4>发布于 <span>06-11-2015</span></h4>
           </div>
           <div class="col-md-8" style="text-align: left">
-            <h4>Chang律师帮我拜托了该不该发生的问题麻烦，他关心他的客户，并不会休息，知道正义得到伸张。他是非常有益和友好和有这样一个惊人的内心</h4>
+            <h4>我我和我的家人已经与他们一起工作了很长的时间和签证绿卡（永久居留）取得了进展 - 全部在所允许的过程中最短的周转时间。更重要的是，<span>Chang</span>是专家，知道他们需要每一个人的情况该怎么做。在我们的例子中，我们从来没有任何进一步的挫折或查询与已提交的任何申报。他们始终可用的网站，回答任何问题，并就任何疑问或客户可能有所顾虑咨询。
+            </h4>
           </div>
         </div>
       </li>
@@ -148,16 +149,18 @@
               <i class="fa fa-star"></i>
               <i class="fa fa-star"></i>
             </div>
-            <h4>由<span>小丸子</span></h4>
-            <h4>发布于 <span>07-21-2015</span></h4>
+            <h4>由 <span>梅子</span></h4>
+            <h4>发布于 <span>02-17-2015</span></h4>
           </div>
           <div class="col-md-8" style="text-align: left">
-            <h4>Chang律师帮我拜托了该不该发生的问题麻烦，他关心他的客户，并不会休息，知道正义得到伸张。他是非常有益和友好和有这样一个惊人的内心</h4>
+            <h4><span>Chang</span>律师正在帮我们的转换H1状态。我们的情况下，有一个非常窄的时间框架，因为我们以前的状态到期。幸运的是<span>Chang</span>律师正确处理我们的情况，所以我们提前得到了批准。令人惊喜的服务水平和质量，并且让我们实时更新非常感激，那是很短的时间，我们真的很辛运找到他！谢谢
+            </h4>
           </div>
         </div>
       </li>
     </ul>
-    <a href="#" class="btn btn-default btn-customized">查看更多点评</a>
+  
+  <a href="#" class="btn btn-default btn-customized">查看更多点评</a>
   </div>
   <div class="container info-table-container">
     <h2 style="text-align: center">律师详情</h2>
@@ -295,20 +298,12 @@
 	{include file="index/footer" /}
 	<!-- End footer -->
 
-<script>
-  $(document).ready(function () {
-    $(".input-for-datalist").val("name");
-    $('.search-choices li a').click(function () {
-      $(".btn-choice .choices").text($(this).text());
-      $(".search-input-choice").attr("placeholder", $(this).text());
-      if ($(this).text() == "律师姓名") {
-        $(".input-for-datalist").val('name');
-      }
-      else {
-        $(".input-for-datalist").val('practice areas');
-      }
-    });
-  });
-</script>
+<script type="text/javascript" src="/static/js/jquery.js"></script>
+<script type="text/javascript" src="/static/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="/static/js/typeahead.jquery.min.js"></script>
+<script type="text/javascript" src="/static/js/search-form.js"></script>
+
+
+
 </body>
 </html>
