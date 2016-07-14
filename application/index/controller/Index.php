@@ -187,7 +187,8 @@ class Index extends Controller
 					);
 
 				$lists = $mongo->collection->find($query)->sort(array('avvo_id'=>1))->limit($views);
-				$count = $mongo->collection->find($query)->count();
+				//$count = $mongo->collection->find($query)->count();
+				$count = 100;
 				break;
 			default:
 				$skip = ($page-1)*$views+1;
@@ -210,9 +211,14 @@ class Index extends Controller
 					);
 
 				$lists = $mongo->collection->find($query)->sort(array('avvo_id'=>1))->limit($views)->skip($skip);
-				$count = $mongo->collection->find($query)->count();
+//				$count = $mongo->collection->find($query)->count();
+				$count = 100;
 				break;
 		}
+		$start = (int)floor($page/10)*10;
+		$end = $start + 10;
+		if ($start==0)
+			$start =1;
 		foreach($lists as $k => $v){
 			$list[$k]['nyis_id'] = $v['avvo_id'];
 			$list[$k]['name']    = $v['name'];
@@ -257,6 +263,8 @@ class Index extends Controller
 			$this->assign('debug',0);	//Show Debug Info 1=true,0=false;
 			$this->assign('pages',ceil($count/$views));	//Total pages;
 			$this->assign('views',$views);	//;
+			$this->assign('start',$start);	//;
+			$this->assign('end',$end);	//;
 		}else{
 			return $this->error("未查询到相关律师信息！");
 		}
@@ -269,7 +277,7 @@ class Index extends Controller
 		$param2 = isset($_GET['param2'])?$_GET['param2']:"";
 		$param3 = isset($_GET['param3'])?$_GET['param3']:"";
 		$page = isset($_GET['page'])?$_GET['page']:"1";		//Current page number;
-		$views = isset($_GET['views'])?$_GET['views']:"20";	//Deafult views = 10
+		$views = isset($_GET['views'])?$_GET['views']:"10";	//Deafult views = 10
 		$mongo  = new Mongodb('avvo_lawyer_info','lawyers');
 		$param2 = str_replace("+",".*",$param2);
 		$param2 = str_replace(" ",".*",$param2);
@@ -297,7 +305,7 @@ class Index extends Controller
 					);
 
 				$lists = $mongo->collection->find($query)->sort(array('avvo_id'=>1))->limit($views);
-				$count = $mongo->collection->find($query)->count();
+				//$count = $mongo->collection->find($query)->count();
 				break;
 			default:
 				$skip = ($page-1)*$views+1;
@@ -318,9 +326,30 @@ class Index extends Controller
 						)
 					);
 				$lists = $mongo->collection->find($query)->sort(array('avvo_id'=>1))->limit($views)->skip($skip);
-				$count = $mongo->collection->find($query)->count();
+				//$count = $mongo->collection->find($query)->count();
 				break;
 		}
+		$start = (int)floor($page/10)*10;
+		$end = $start + 10;
+		if ($start==0)
+			$start =1;
+		$i = 0;
+		while(true)
+		{
+			$skip = $end*$views+1;
+			$count = $mongo->collection->find($query)->sort(array('avvo_id'=>1))->limit(1)->skip($skip);
+			foreach ($count as $k=>$v)
+			{
+				$i++;
+			}
+			if ($i>0)
+				break;
+			$end--;
+		}
+		var_dump ($skip);
+		var_dump($start);
+		var_dump($end);
+		return false;
 		foreach($lists as $k => $v){
 			$list[$k]['nyis_id'] = $v['avvo_id'];
 			$list[$k]['name']    = $v['name'];
@@ -369,6 +398,8 @@ class Index extends Controller
 			return $this->error("未查询到用户信息！");
 		}
 		//return $this->fetch();
+		var_dump ($count);
+		var_dump(count($list));
 		return json_encode($list);
 	}
 

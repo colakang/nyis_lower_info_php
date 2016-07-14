@@ -593,7 +593,7 @@ background-size: cover;
     height: 100%;
 }
 
-.fa-star{
+.fa-star, .fa-star-half-o, .fa-star-o{
     color: #FEB902;
 }
 .practice-area-collection{
@@ -661,6 +661,18 @@ background-size: cover;
 }
 .basic-info{
     margin-top: 150px;
+}
+@media (max-width: 991px){
+    .round-portrait img{
+         display: block;
+         width: 40%;
+    }
+    .basic-info{
+          margin-top: 0px;
+    }
+    .search-result-portrait img{
+          width: 40%;
+    }
 }
 .basic-info-1st{
     overflow: auto;

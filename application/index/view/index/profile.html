@@ -6,7 +6,7 @@
 
 	{include file="index/head_source" /}
 </head>
-<body>
+<body ng-app="lawyerRate" ng-controller="reviewCtrl">
 	<!-- banner -->
 	{include file="index/banner" /}
 	<!-- End banner -->
@@ -21,7 +21,7 @@
       </div>
       <div class="col-md-7 basic-info">
         <div class="basic-info-1st">
-          <h2><strong>{$user}</strong></h2>
+          <h2><strong id="lawyer_name">{$user}</strong></h2>
           <div>
             <br>
             <i class="glyphicon glyphicon-phone-alt"></i> {$phone}
@@ -67,19 +67,19 @@
   </div>
   <div class="container-fluid badge-container">
     <div class="row  text-center">
-      <div class="col-md-4">
+      <div class="col-xs-4 col-md-4">
         <a href="#" class="btn btn-default btn-badge">
           <i class="glyphicon glyphicon-envelope" style="margin-right: 5px;"></i>
           <h4 style="display: inline-block; margin-top: 6px">Email</h4>
         </a>
       </div>
-      <div class="col-md-4">
+      <div class="col-xs-4 col-md-4">
         <a href="#" class="btn btn-default btn-badge">
           <i class="glyphicon glyphicon-phone-alt" style="margin-right: 5px"></i>
           <h4 style="display: inline-block; margin-top: 6px">Call</h4>
         </a>
       </div>
-      <div class="col-md-4">
+      <div class="col-xs-4 col-md-4">
         <a href="#" class="btn btn-default btn-badge">
           <i class="fa fa-location-arrow"></i>
           <h4 style="display: inline-block; margin-top: 6px">Contact Info</h4>
@@ -99,66 +99,26 @@
       <p style="display: inline-block">156</p>
     </div>
     <br>
-    <a href="#" class="btn btn-default btn-customized" data-toggle="modal" data-target="#myModal">写点评</a>
+    <a href="#" class="btn btn-default btn-customized" data-toggle="modal" data-target="#myModal1">写点评</a>
     <br>
         <ul class="review-list">
-      <li class="col-md-10 col-md-offset-1">
+      <li class="col-md-10 col-md-offset-1" ng-repeat="review in reviewlist">
         <div>
           <div class="col-md-4" style="text-align: left">
             <div>
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
+              <i class="fa fa-star" ng-repeat="i in getRange(0, review.score)"></i>
+	      <i class="fa fa-star-half-o" ng-if="isDecimal(review.score)"></i>
+              <i class="fa fa-star-o" ng-repeat="i in getRange(review.score, 5)"></i>
             </div>
-            <h4>由 <span>小丸子</span></h4>
-            <h4>发布于 <span>07-21-2015</span></h4>
+            <h4>由 {{review.author}}</h4>
+            <h4>发布于 {{review.time}}</h4>
           </div>
           <div class="col-md-8" style="text-align: left">
-            <h4><span>Chang</span>律师帮我摆脱了不该发生问题与麻烦,她很关心客户,时刻工作。她就是这样一个友好,敬业,专业的律师</h4>
+	    <h4>{{review.content}}</h4>
           </div>
         </div>
       </li>
-      <li class="col-md-10 col-md-offset-1">
-        <div>
-          <div class="col-md-4" style="text-align: left">
-            <div>
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-            </div>
-            <h4>由 <span>花轮同学</span></h4>
-            <h4>发布于 <span>06-11-2015</span></h4>
-          </div>
-          <div class="col-md-8" style="text-align: left">
-            <h4>我我和我的家人已经与他们一起工作了很长的时间和签证绿卡（永久居留）取得了进展 - 全部在所允许的过程中最短的周转时间。更重要的是，<span>Chang</span>是专家，知道他们需要每一个人的情况该怎么做。在我们的例子中，我们从来没有任何进一步的挫折或查询与已提交的任何申报。他们始终可用的网站，回答任何问题，并就任何疑问或客户可能有所顾虑咨询。
-            </h4>
-          </div>
-        </div>
-      </li>
-      <li class="col-md-10 col-md-offset-1">
-        <div>
-          <div class="col-md-4" style="text-align: left">
-            <div>
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-            </div>
-            <h4>由 <span>梅子</span></h4>
-            <h4>发布于 <span>02-17-2015</span></h4>
-          </div>
-          <div class="col-md-8" style="text-align: left">
-            <h4><span>Chang</span>律师正在帮我们的转换H1状态。我们的情况下，有一个非常窄的时间框架，因为我们以前的状态到期。幸运的是<span>Chang</span>律师正确处理我们的情况，所以我们提前得到了批准。令人惊喜的服务水平和质量，并且让我们实时更新非常感激，那是很短的时间，我们真的很辛运找到他！谢谢
-            </h4>
-          </div>
-        </div>
-      </li>
-    </ul>
+  </ul>
   
   <a href="#" class="btn btn-default btn-customized">查看更多点评</a>
   </div>
@@ -294,16 +254,109 @@
   </div>
 </div>
 
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title text-center">登陆 | 注册</h4>
+      </div>
+      <div class="modal-container">
+        <div class="row">
+          <div class="col-xs-6 login-form">
+            <h3>用户登录</h3>
+            <br>
+            <form action="" class="form-horizontal">
+              <div class="input-group">
+                <span class="input-group-addon modal-input-group-addon"><i class="fa fa-envelope-o"></i> </span>
+                <input type="text" class="form-control modal-input" placeholder="用户名" aria-describedby="basic-addon1">
+              </div>
+              <br>
+              <div class="input-group">
+                <span class="input-group-addon modal-input-group-addon"><i class="fa fa-key"></i> </span>
+                <input type="text" class="form-control modal-input" placeholder="密码" aria-describedby="basic-addon1">
+              </div>
+              <br>
+              <br>
+              <br>
+              <div class="row">
+                <div class="col-xs-8">
+                  <input type="checkbox">记住我
+                  <p>忘记密码</p>
+                </div>
+                <div class="col-xs-4">
+                  <button type="submit" class="btn btn-primary" style="float:right">登录</button>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="col-xs-6 sign-up-form">
+            <h3 class="high-contrast">还不是会员?</h3>
+            <form action="" class="form-horizontal">
+
+              <input type="text" class="form-control modal-input" placeholder="用户名" aria-describedby="basic-addon1">
+
+              <br>
+
+              <input type="text" class="form-control modal-input" placeholder="密码" aria-describedby="basic-addon1">
+
+              <br>
+
+              <input type="text" class="form-control modal-input" placeholder="确认密码" aria-describedby="basic-addon1">
+
+              <br>
+              <div class="row">
+                <button type="submit" class="btn btn-primary" style="float:right;background-color:white">注册</button>
+              </div>
+              <br>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--review modal-->
+<div ng-controller="writeReviewCtrl" class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <!--review submit uri, use post method-->
+     <!-- <form action="#" method="post">-->
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+              aria-hidden="true">&times;</span></button>
+          <!--律师名字-->
+          <h4 class="modal-title" id="myModalLabel">评价<span>{$user}</span></h4>
+          <br>
+          <div id="rateYo"></div>
+        </div>
+        <div class="modal-body">
+          <textarea class="form-control comment-box" name="review" row="20" ng-model="content"></textarea>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+          <button id="submitReview" ng-click="addReview()" class="btn btn-primary" data-dismiss="modal">发布评价</button>
+        </div>
+      <!--</form>-->
+    </div>
+  </div>
+</div>
+
+
+
+
+
 	<!-- footer -->
 	{include file="index/footer" /}
 	<!-- End footer -->
 
 <script type="text/javascript" src="/static/js/jquery.js"></script>
+<script type="text/javascript" src="/static/js/angular.min.js"></script>
 <script type="text/javascript" src="/static/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="/static/js/typeahead.jquery.min.js"></script>
+<script type="text/javascript" src="/static/js/jquery.rateyo.min.js"></script>
 <script type="text/javascript" src="/static/js/search-form.js"></script>
-
-
-
+<script type="text/javascript" src="/static/js/lawyer_rating.js"></script>
 </body>
 </html>

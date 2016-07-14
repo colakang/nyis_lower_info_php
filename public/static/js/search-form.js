@@ -57,3 +57,15 @@ $(document).ready(function () {
       source: substringMatcher(states)
     });
 })();
+
+$(function () {
+    $("#rateYo").rateYo({
+      starWidth: "16px",
+      halfStar: true,
+      onInit: function(rating){
+        $('#rating_score').val(rating);
+      }
+    }).on('rateyo.change', function (e, data) {
+      $('#rating_score').val(data.rating);
+    });
+  });
