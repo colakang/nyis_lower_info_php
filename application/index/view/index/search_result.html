@@ -125,7 +125,7 @@
 
 <!--搜索结果 一页显示10-->
 <div class="container">
-  <div class="search-result-list col-md-9">
+  <div class="search-result-list col-md-9" id='result'>
 	<input type="hidden" id="param1" value="{$param1}" />
 	<input type="hidden" id="param2" value="{$param2}" />
 	<input type="hidden" id="param3" value="{$param3}" />
@@ -188,15 +188,15 @@
       <!--分页栏-->
       <ul class="pagination">
 
-        	<li><a aria-label="上一页" onclick="goPage('up');" value-"#"><span aria-hidden="true" onclick="goPage('up');">&laquo;</span></a></li>
+        	<li><a aria-label="上一页" onclick="goPage('up',{$page},{$pages},{$views});" value="#"><span aria-hidden="true" >&laquo;</span></a></li>
 	{for start="$start" comparison="elt"   end="$end"}
 		{eq name="page" value="$i"}
         		<li class="active"><a href="javascript:void(0)">{$i}</a></li>
 		{else/}
-        		<li ><a href="/index/index/search_result/page/{$i}/views/{$views}/param1/{$param1}/param2/{$param2}/param3/{$param3}">{$i}</a></li>
+        		<li ><a onclick="goPage('go',{$i},{$pages},{$views});" ><span aria-hidden="true" >{$i}</span></a></li>
 		{/eq}
 	{/for}
-        	<li><a aria-label="下一页" onclick="goPage('next');" value="#"><span aria-hidden="true" onclick="goPage('next');">&raquo;</span></a></li>
+        	<li><a aria-label="下一页" onclick="goPage('next',{$page},{$pages},{$views});" value="#"><span aria-hidden="true" >&raquo;</span></a></li>
       </ul>
     </nav>
   </div>
@@ -272,15 +272,17 @@
 	<!-- footer -->
 	{include file="index/footer" /}
 	<!-- End footer -->
+<script type="text/javascript" src="/static/js/jquery.js"></script>
+<script type="text/javascript" src="/static/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="/static/js/typeahead.jquery.min.js"></script>
+<script type="text/javascript" src="/static/js/search-form.js"></script>
+
 
 <script>
-  function goPage(action){
+  function goPage(action,page,pages,views){
 		var param1;
 		var param2;
 		var param3;
-		var page = {$page};
-		var pages = {$pages};
-		var views = {$views};
 		var href = "/index/index/search_result";
 		param1 = document.getElementById("param1").value;
 		param2 = document.getElementById("param2").value;
@@ -295,29 +297,104 @@
 		{
 			case "up":
 				if (page>1)
-					page = page -1;
+					page--;
 				else
 					return false;
 				break;
 			case "next":
 				if (page<pages)
-					page = page +1;
+					page++;
 				else
 					return false;
 				break;
+			case "go":
+				break;
 		}		
-		href = href+"/page/"+(page);
+		href = href+"/page/"+page;
 		href = href+"/views/"+views;
-		window.location.href=href;
+        	jQuery.ajax({
+            		url: href,
+	        	//data: { page: page,views:views,param1:param1,param2:param2,param3,param3},
+        		type: 'GET',
+            		// optional contentType (depend on your server environment):
+            		// contentType: 'application/json',
+            		dataType: 'html',
+            		success:function(data,st) {
+                		// TODO: construct HTML code based on data received from the server
+				$('#result').html(data);
+            			},
+	            		error:function(xhr,st,err){
+        	        		alert(st + ": " + xhr.responseText);
+            			}
+        	});
 	}
 
+			function ajaxindicatorstart(text)
+			{
+				if(jQuery('body').find('#resultLoading').attr('id') != 'resultLoading')
+				{
+					jQuery('body').append('<div id="resultLoading" style="display:none"><div><img src="/static/images/ajax-loader.gif"><div>'+text+'</div></div><div class="bg"></div></div>');
+				}
+			
+				jQuery('#resultLoading').css({
+					'width':'100%',
+					'height':'100%',
+					'position':'fixed',
+					'z-index':'10000000',
+					'top':'0',
+					'left':'0',
+					'right':'0',
+					'bottom':'0',
+					'margin':'auto'
+				});
+			
+				jQuery('#resultLoading .bg').css({
+					'background':'#000000',
+					'opacity':'0.7',
+					'width':'100%',
+					'height':'100%',
+					'position':'absolute',
+					'top':'0'
+				});
+			
+				jQuery('#resultLoading>div:first').css({
+					'width': '250px',
+					'height':'75px',
+					'text-align': 'center',
+					'position': 'fixed',
+					'top':'0',
+					'left':'0',
+					'right':'0',
+					'bottom':'0',
+					'margin':'auto',
+					'font-size':'16px',
+					'z-index':'10',
+					'color':'#ffffff'
+			
+				});
+			
+			    jQuery('#resultLoading .bg').height('100%');
+			       jQuery('#resultLoading').fadeIn(300);
+			    jQuery('body').css('cursor', 'wait');
+			}
+
+			function ajaxindicatorstop()
+			{
+			    jQuery('#resultLoading .bg').height('100%');
+			       jQuery('#resultLoading').fadeOut(300);
+			    jQuery('body').css('cursor', 'default');
+			}
+
+			jQuery(document).ajaxStart(function () {
+			 		//show ajax indicator
+				ajaxindicatorstart('loading data.. please wait..');
+			}).ajaxStop(function () {
+				//hide ajax indicator
+				ajaxindicatorstop();
+			});
+
+
 </script>
-
-<script type="text/javascript" src="/static/js/jquery.js"></script>
-<script type="text/javascript" src="/static/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="/static/js/typeahead.jquery.min.js"></script>
-<script type="text/javascript" src="/static/js/search-form.js"></script>
-
 
 </body>
 </html>

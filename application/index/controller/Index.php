@@ -3,6 +3,8 @@ namespace app\index\controller;
 
 use app\index\event\Mongodb;
 use think\Controller;
+use think\Request;
+
 class Index extends Controller
 {
 	public function index()
@@ -152,7 +154,7 @@ class Index extends Controller
 		return $this->fetch();
 
 	}
-	
+
 	
 	public function search_result()
 	{
@@ -160,10 +162,10 @@ class Index extends Controller
 		$param2 = isset($_GET['param2'])?$_GET['param2']:"";
 		$param3 = isset($_GET['param3'])?$_GET['param3']:"";
 		$page = isset($_GET['page'])?$_GET['page']:"1";		//Current page number;
-		$views = isset($_GET['views'])?$_GET['views']:"20";	//Deafult views = 10
-		$param2 = str_replace("+",".*",$param2);
-		$param2 = str_replace(" ",".*",$param2);
-		$param2 = str_replace("%20",".*",$param2);
+		$views = isset($_GET['views'])?$_GET['views']:"10";	//Deafult views = 10
+		$nParam2 = str_replace("+",".*",$param2);
+		$nParam2 = str_replace(" ",".*",$nParam2);
+		$nParam2 = str_replace("%20",".*",$nParam2);
 		$mongo  = new Mongodb('avvo_lawyer_info','lawyers');
 		switch($page)
 		{
@@ -173,8 +175,8 @@ class Index extends Controller
 						'$and'=>array(
 								array(
 									'$or'=>array(
-										array("name" => new \MongoRegex("/{$param2}.*/i")),
-										array("practice areas" => new \MongoRegex("/{$param2}.*/i"))
+										array("name" => new \MongoRegex("/{$nParam2}.*/i")),
+										array("practice areas" => new \MongoRegex("/{$nParam2}.*/i"))
 									)
 								),
 								array(
@@ -187,8 +189,8 @@ class Index extends Controller
 					);
 
 				$lists = $mongo->collection->find($query)->sort(array('avvo_id'=>1))->limit($views);
-				//$count = $mongo->collection->find($query)->count();
-				$count = 100;
+				//$count = $mongo->collection->find($query)->sort(array('avvo_id'=>1))->count();
+				$count = 300;
 				break;
 			default:
 				$skip = ($page-1)*$views+1;
@@ -197,8 +199,8 @@ class Index extends Controller
 						'$and'=>array(
 								array(
 									'$or'=>array(
-										array("name" => new \MongoRegex("/{$param2}.*/i")),
-										array("practice areas" => new \MongoRegex("/{$param2}.*/i"))
+										array("name" => new \MongoRegex("/{$nParam2}.*/i")),
+										array("practice areas" => new \MongoRegex("/{$nParam2}.*/i"))
 									)
 								),
 								array(
@@ -211,8 +213,8 @@ class Index extends Controller
 					);
 
 				$lists = $mongo->collection->find($query)->sort(array('avvo_id'=>1))->limit($views)->skip($skip);
-//				$count = $mongo->collection->find($query)->count();
-				$count = 100;
+				//$count = $mongo->collection->find($query)->sort(array('avvo_id'=>1))->count();
+				$count = 300;
 				break;
 		}
 		$start = (int)floor($page/10)*10;
@@ -268,6 +270,9 @@ class Index extends Controller
 		}else{
 			return $this->error("未查询到相关律师信息！");
 		}
+
+		if (Request::instance()->isAjax())
+			return $this->fetch('search_result_ajax'); 
 		return $this->fetch();
 	}
 
@@ -334,6 +339,12 @@ class Index extends Controller
 		if ($start==0)
 			$start =1;
 		$i = 0;
+
+		$skip = $end*$views+1;
+		
+		//$count = $mongo->collection->deleteIndex(array('name'=>1,"practice areas"=>1));
+		$count = $mongo->collection->find($query,array('avvo_id'=>1))->sort(array('avvo_id'=>1))->limit(1)->skip($skip);
+/*
 		while(true)
 		{
 			$skip = $end*$views+1;
@@ -346,10 +357,16 @@ class Index extends Controller
 				break;
 			$end--;
 		}
+*/
+	//	foreach ($count as $k=>$v)
+	//	{
+	//		$i++;
+	//	}
+		var_dump ($i);
 		var_dump ($skip);
 		var_dump($start);
 		var_dump($end);
-		return false;
+		$count = 30;
 		foreach($lists as $k => $v){
 			$list[$k]['nyis_id'] = $v['avvo_id'];
 			$list[$k]['name']    = $v['name'];
@@ -398,8 +415,7 @@ class Index extends Controller
 			return $this->error("未查询到用户信息！");
 		}
 		//return $this->fetch();
-		var_dump ($count);
-		var_dump(count($list));
+		//var_dump(count($list));
 		return json_encode($list);
 	}
 

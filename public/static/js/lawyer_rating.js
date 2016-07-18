@@ -17,6 +17,10 @@ $('#submitReview').click(function () {
   initRateYo();
 });
 
+$('#more-review').click(function(e){
+  e.preventDefault();
+});
+
 initRateYo();
 
 angular.
@@ -25,7 +29,7 @@ controller('reviewCtrl', ['$scope', function ($scope) {
   $scope.lawyerName = document.getElementById("lawyer_name").innerHTML;
   $scope.reviewlist = [];
   $scope.showNum = 5;
-  var review = {
+  /*var review = {
     score: 5,
     author: '小丸子',
     time: '07-21-2015',
@@ -50,7 +54,7 @@ controller('reviewCtrl', ['$scope', function ($scope) {
     "幸运的是" + $scope.lawyerName + "律师正确处理我们的情况，所以我们提前得到了批准。令人惊喜的服务水平和质量，并且让我们实时更新" +
     "非常感激，那是很短的时间，我们真的很辛运找到他！谢谢"
   };
-  $scope.reviewlist.push(review);
+  $scope.reviewlist.push(review);*/
   $scope.getRange = function (start, end) {
     start = Math.ceil(start);
     end = Math.floor(end);
@@ -62,6 +66,9 @@ controller('reviewCtrl', ['$scope', function ($scope) {
   }
   $scope.isDecimal = function (num) {
     return num !== Math.round(num);
+  };
+  $scope.showMore = function(){
+    $scope.showNum += 5;
   };
 }]).
 controller('writeReviewCtrl',['$scope', function ($scope) {

@@ -687,6 +687,7 @@ background-size: cover;
 .profile-container{
     position: relative;
     top:-120px;
+    margin-bottom:-120px;
 }
 .badge-container{
     height: 80px;
@@ -723,7 +724,11 @@ background-size: cover;
 }
 
 .info-table-container{
-    margin-top: 30px;
+    padding-bottom: 40px;
+    background-color: #f6f6f6;
+}
+.review-container{
+    margin-bottom: 30px;
 }
 
 table{
@@ -798,4 +803,25 @@ textarea.comment-box{
 }
 .modal-input{
     border-radius: 0;
+}
+.info-table-container h2{
+    color: #3c3c3c;
+}
+.table-container{
+    background-color: white;
+    padding-bottom: 30px;
+    color: #3c3c3c;
+}
+.table-container th{
+    background-color: #f9f9f9;
+}
+.table-container h2,
+.table-container h3{
+    color: #3c3c3c;
+}
+.table-container tr{
+    height: 30px;
+}
+.table-container table{
+    font-size: 15px;
 }

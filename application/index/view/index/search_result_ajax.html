@@ -1,0 +1,75 @@
+
+	<input type="hidden" id="param1" value="{$param1}" />
+	<input type="hidden" id="param2" value="{$param2}" />
+	<input type="hidden" id="param3" value="{$param3}" />
+    <ul>
+	{volist name="list" id="list"}
+      <li class="search-list-block">
+        <div class="row">
+          <div class="search-result-portrait col-md-2">
+            <img src="/static/images/search_result/profile-07.png"> <!--搜索结果头像-->
+          </div>
+          <div class="col-md-6">
+            <h4>{$list.name}</h4> <!--名字-->
+            <p>{$list.city}</p> <!--所在地-->
+            <!--评分-->
+            <div>
+              <i class="fa fa-star"></i>
+              <i class="fa fa-star"></i>
+              <i class="fa fa-star"></i>
+              <i class="fa fa-star"></i>
+              <i class="fa fa-star"></i>
+            </div>
+			<span id="nyis_id" style="display:none">{$list.nyis_id}</span>
+            <!--从业领域 若多于5个 选取前五个-->
+            <div class="practice-area-collection">
+              <ul>
+				<?php 
+					if(!empty($list['practice'][0])){
+						echo "<li class='practice-area-badge'>" . $list['practice'][0] . "</li>";
+					} 
+					if(!empty($list['practice'][1])){
+						echo "<li class='practice-area-badge'>" . $list['practice'][1] . "</li>";
+					}
+					if(!empty($list['practice'][2])){
+						echo "<li class='practice-area-badge'>" . $list['practice'][2] . "</li>";
+					}
+					if(!empty($list['practice'][3])){
+						echo "<li class='practice-area-badge'>" . $list['practice'][3] . "</li>";
+					}
+					if(!empty($list['practice'][4])){
+						echo "<li class='practice-area-badge'>" . $list['practice'][4] . "</li>";
+					}
+				?>
+              </ul>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <!-- 联系电话 若没有 不显示-->
+            <div>
+              <br>
+              <i class="glyphicon glyphicon-phone-alt"></i> {$list.phone}
+            </div>
+            <!--转入详情页-->
+            <a href="/index/index/profile/nyis_id/{$list.nyis_id}" class="btn btn-default">查看详情</a>
+          </div>
+        </div>
+      </li>
+	{/volist}
+    </ul>
+    <nav class="text-center">
+      <!--分页栏-->
+      <ul class="pagination">
+
+        	<li><a aria-label="上一页" onclick="goPage('up',{$page},{$pages},{$views});" value-"#"><span aria-hidden="true" >&laquo;</span></a></li>
+	{for start="$start" comparison="elt"   end="$end"}
+		{eq name="page" value="$i"}
+        		<li class="active"><a href="javascript:void(0)">{$i}</a></li>
+		{else/}
+        		<li ><a onclick="goPage('go',{$i},{$pages},{$views});" ><span aria-hidden="true" >{$i}</span></a></li>
+		{/eq}
+	{/for}
+        	<li><a aria-label="下一页" onclick="goPage('next',{$page},{$pages},{$views});" value="#"><span aria-hidden="true" >&raquo;</span></a></li>
+      </ul>
+    </nav>
+

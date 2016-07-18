@@ -87,7 +87,7 @@
       </div>
     </div>
   </div>
-  <div class="container text-center">
+  <div class="container text-center review-container">
     <h1>律师点评</h1>
     <br>
     <div>
@@ -102,154 +102,150 @@
     <a href="#" class="btn btn-default btn-customized" data-toggle="modal" data-target="#myModal1">写点评</a>
     <br>
         <ul class="review-list">
-      <li class="col-md-10 col-md-offset-1" ng-repeat="review in reviewlist">
+      <li class="col-md-10 col-md-offset-1" ng-repeat="review in reviewlist track by $index" ng-show="$index < showNum">
         <div>
-          <div class="col-md-4" style="text-align: left">
+          <div class="col-md-3" style="text-align: left">
             <div>
               <i class="fa fa-star" ng-repeat="i in getRange(0, review.score)"></i>
 	      <i class="fa fa-star-half-o" ng-if="isDecimal(review.score)"></i>
               <i class="fa fa-star-o" ng-repeat="i in getRange(review.score, 5)"></i>
             </div>
-            <h4>由 {{review.author}}</h4>
-            <h4>发布于 {{review.time}}</h4>
+            <p>由 {{review.author}}</p>
+            <p>发布于 {{review.time}}</p>
           </div>
-          <div class="col-md-8" style="text-align: left">
-	    <h4>{{review.content}}</h4>
+          <div class="col-md-9" style="text-align: left">
+	    <p>{{review.content}}</p>
           </div>
         </div>
       </li>
   </ul>
   
-  <a href="#" class="btn btn-default btn-customized">查看更多点评</a>
+  <a href="#" id="more-review" class="btn btn-default btn-customized" ng-show="reviewlist.length > showNum" ng-click="showMore()">查看更多点评</a>
   </div>
-  <div class="container info-table-container">
-    <h2 style="text-align: center">律师详情</h2>
-    <div class="col-md-offset-1 col-md-10">
-	<?php if(!empty($licenses)){ ?>
-      <h3>执照信息</h3>
-      <table>
-        <tr>
-            <th>适用州</th>
-            <th>状态</th>
-            <th>获得日期</th>
-            <th>最近更新</th>
-        </tr>
-		{volist name="licenses" id="licenses"}
-        <tr>
-          <td>{$licenses.state}</td>
-          <td>{$licenses.status}</td>
-          <td>{$licenses.origin}</td>
-          <td><?php echo date("Y-m-d",$licenses['updated']['sec']); ?></td>
-        </tr>
-		{/volist}
-      </table>
-	<?php } ?>
-	<?php if(!empty($awards)){ ?>
-      <hr style="border-top: 2px solid lightgray">
-      <h3>奖项</h3>
-      <table>
-        <tr>
-          <th>奖项名称</th>
-          <th>颁发机构</th>
-          <th>颁发日期</th>
-        </tr>
-		{volist name="awards" id="awards"}
-        <tr>
-          <td>{$awards.award_name}</td>
-          <td>{$awards.grantor}</td>
-          <td>{$awards.date_granted}</td>
-        </tr>
-		{/volist}
-      </table>
-	<?php } ?>
-	<?php if(!empty($work_experience)){ ?>
-      <hr style="border-top: 2px solid lightgray">
-      <h3>工作经验</h3>
-      <table>
-        <tr>
-          <th>公司名称</th>
-          <th>职 位</th>
-          <th>时 间</th>
-        </tr>
-		{volist name="work_experience" id="work_experience"}
-        <tr>
-          <td>{$work_experience.company_name}</td>
-          <td>{$work_experience.title}</td>
-          <td>{$work_experience.duration}</td>
-        </tr>
-		{/volist}
-      </table>
-	<?php } ?>
-	<?php if(!empty($associations)){ ?>
-      <hr style="border-top: 2px solid lightgray">
-      <h3>协会</h3>
-      <table>
-        <tr>
-          <th>协会名称</th>
-          <th>职 位</th>
-          <th>时 间</th>
-        </tr>
-		{volist name="associations" id="associations"}
-        <tr>
-          <td>{$associations.association_name}</td>
-          <td>{$associations.position_name}</td>
-          <td>{$associations.duration}</td>
-        </tr>
-		{/volist}
-      </table>
-	<?php } ?>
-	<?php if(!empty($legal_cases)){ ?>
-      <hr style="border-top: 2px solid lightgray">
-      <h3>法律案件</h3>
-      <table>
-        <tr>
-          <th>案 件</th>
-          <th>结 果</th>
-        </tr>
-		{volist name="legal_cases" id="legal_cases"}
-        <tr>
-          <td>{$legal_cases.case_name}</td>
-          <td>{$legal_cases.outcome}</td>
-        </tr>
-		{/volist}
-      </table>
-	<?php } ?>
-	<?php if(!empty($publications)){ ?>
-      <hr style="border-top: 2px solid lightgray">
-      <h3>出版物</h3>
-      <table>
-        <tr>
-          <th>作品名</th>
-          <th>时 间</th>
-        </tr>
-		{volist name="publications" id="publications"}
-        <tr>
-          <td>{$publications.publication_name}</td>
-          <td>{$publications.date}</td>
-        </tr>
-		{/volist}
-      </table>
-	<?php } ?>
-	<?php if(!empty($education)){ ?>
-      <hr style="border-top: 2px solid lightgray">
-      <h3>教育经历</h3>
-      <table>
-        <tr>
-          <th>学校名称</th>
-          <th>主修课程</th>
-          <th>学 位</th>
-          <th>毕 业</th>
-        </tr>
-		{volist name="education" id="education"}
-        <tr>
-          <td>{$education.school_name}</td>
-          <td>{$education.major}</td>
-          <td>{$education.degree}</td>
-          <td>{$education.graduated}</td>
-        </tr>
-		{/volist}
-      </table>
-	<?php } ?>
+  <div class="info-table-container">
+    <div class="container">
+      <h2 style="text-align: center">律师详情</h2>
+      <div class="col-md-offset-1 col-md-10 table-container">
+    <?php if(!empty($licenses)){ ?>
+        <h3>执照信息</h3>
+        <table>
+          <tr>
+              <th>适用州</th>
+              <th>状态</th>
+              <th>获得日期</th>
+              <th>最近更新</th>
+          </tr>
+      {volist name="licenses" id="licenses"}
+          <tr>
+            <td>{$licenses.state}</td>
+            <td>{$licenses.status}</td>
+            <td>{$licenses.origin}</td>
+            <td><?php echo date("Y-m-d",$licenses['updated']['sec']); ?></td>
+          </tr>
+      {/volist}
+        </table>
+    <?php } ?>
+    <?php if(!empty($awards)){ ?>
+        <h3>奖项</h3>
+        <table>
+          <tr>
+            <th>奖项名称</th>
+            <th>颁发机构</th>
+            <th>颁发日期</th>
+          </tr>
+      {volist name="awards" id="awards"}
+          <tr>
+            <td>{$awards.award_name}</td>
+            <td>{$awards.grantor}</td>
+            <td>{$awards.date_granted}</td>
+          </tr>
+      {/volist}
+        </table>
+    <?php } ?>
+    <?php if(!empty($work_experience)){ ?>
+        <h3>工作经验</h3>
+        <table>
+          <tr>
+            <th>公司名称</th>
+            <th>职 位</th>
+            <th>时 间</th>
+          </tr>
+      {volist name="work_experience" id="work_experience"}
+          <tr>
+            <td>{$work_experience.company_name}</td>
+            <td>{$work_experience.title}</td>
+            <td>{$work_experience.duration}</td>
+          </tr>
+      {/volist}
+        </table>
+    <?php } ?>
+    <?php if(!empty($associations)){ ?>
+        <h3>协会</h3>
+        <table>
+          <tr>
+            <th>协会名称</th>
+            <th>职 位</th>
+            <th>时 间</th>
+          </tr>
+      {volist name="associations" id="associations"}
+          <tr>
+            <td>{$associations.association_name}</td>
+            <td>{$associations.position_name}</td>
+            <td>{$associations.duration}</td>
+          </tr>
+      {/volist}
+        </table>
+    <?php } ?>
+    <?php if(!empty($legal_cases)){ ?>
+        <h3>法律案件</h3>
+        <table>
+          <tr>
+            <th>案 件</th>
+            <th>结 果</th>
+          </tr>
+      {volist name="legal_cases" id="legal_cases"}
+          <tr>
+            <td>{$legal_cases.case_name}</td>
+            <td>{$legal_cases.outcome}</td>
+          </tr>
+      {/volist}
+        </table>
+    <?php } ?>
+    <?php if(!empty($publications)){ ?>
+        <h3>出版物</h3>
+        <table>
+          <tr>
+            <th>作品名</th>
+            <th>时 间</th>
+          </tr>
+      {volist name="publications" id="publications"}
+          <tr>
+            <td>{$publications.publication_name}</td>
+            <td>{$publications.date}</td>
+          </tr>
+      {/volist}
+        </table>
+    <?php } ?>
+    <?php if(!empty($education)){ ?>
+        <h3>教育经历</h3>
+        <table>
+          <tr>
+            <th>学校名称</th>
+            <th>主修课程</th>
+            <th>学 位</th>
+            <th>毕 业</th>
+          </tr>
+      {volist name="education" id="education"}
+          <tr>
+            <td>{$education.school_name}</td>
+            <td>{$education.major}</td>
+            <td>{$education.degree}</td>
+            <td>{$education.graduated}</td>
+          </tr>
+      {/volist}
+        </table>
+    <?php } ?>
+      </div>
     </div>
   </div>
 </div>
