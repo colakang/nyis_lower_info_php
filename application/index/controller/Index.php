@@ -4,6 +4,7 @@ namespace app\index\controller;
 use app\index\event\Mongodb;
 use think\Controller;
 use think\Request;
+use think\Input;
 
 class Index extends Controller
 {
@@ -423,83 +424,36 @@ class Index extends Controller
     {
 
 	$mongo  = new Mongodb('avvo_lawyer_info','lawyers');
-	switch(Input::post('oper'))
+	switch(Input::param('oper'))
 	{
 		case "save":
-			$con = array('avvo_id'=>Input::post('nyisId'));
+			$con = array('avvo_id'=>(int)Input::param('nyis_id'));
 			$save = array();
-			if (Input::post('name'))
-				$save['name'] = Input::post('name');
-			if (Input::post('review'))
-				$save['review'] = Input::post('review');
-			if (Input::post('rank'))
-				$save['rank'] = Input::post('rank');
+			if (Input::param('name'))
+				$save['name'] = Input::param('name');
+			if (Input::param('review'))
+				$save['review'] = Input::param('review');
+			if (Input::param('rank'))
+				$save['rank'] = Input::param('rank');
 			$save['createAt'] = time();
-			$result = $mongo->update(
+			$save['_id'] = new \MongoId();
+			$result = $mongo->collection->update(
 					$con,
 					array('$push' => array("comments" => $save))
 				);
-			var_dump($result);
-			return false;
-			if (!$result)
+			if ($result["ok"]!=1)
 				$message = 'Update Error!! Pls Check Again';
 			else 
 				$message = 'Update Success';
 			break;
 		case "get":
-			$nyisId = Input::param('nyisId');
-			$query = array('avvo_id'=>$nyisId);
-			$result = $mongo->collection->findOne($query,array('comments'=>1))->sort(array('avvo_id'=>1));
+			$nyis_id = (int)Input::param('nyis_id');
+			$query = array('avvo_id'=>$nyis_id);
+			var_dump($query);
+			$result = $mongo->collection->findOne($query,array('comments'=>1,'name'=>1,'avvo_id'=>1,'rank'=>1));
+			//$result = $mongo->collection->findOne($query);
 			return json_encode($result);
 			break;
-		case "newAddress":
-			$address = array(
-					"name"=>Input::post('name'),
-					"address1"=>Input::post('address1'),
-					"address2"=>Input::post('address2'),
-					"city"=>Input::post('city'),
-					"state"=>Input::post('state'),
-					"zipcode"=>Input::post('zipcode'),
-					"phone"=>Input::post('phone'),
-					"uid"=>$uid,
-					);
-			$addressMd5 = md5(implode("-",$address)); 
-
-			$shipmentAddress = new \app\index\model\ShipmentAddress;
-			$md5 = $shipmentAddress::where('md5',$addressMd5)->value('id');
-			if (empty($md5))
-			{
-				$address['md5'] = $addressMd5;
-				$shipmentAddress = new \app\index\model\ShipmentAddress;
-				$shipmentAddress->data($address);
-				$shipmentAddress->save();
-				$message = $shipmentAddress->id;
-			} else {
-				$message = $md5;
-			}
-			break;
-		case "newLabel":
-			$shipment = new \app\index\model\Shipment;
-			if (!Input::post('customer_id')) $_POST['customer_id'] = 90000+$uid;
-			if (!Input::post('order_id')) $_POST['order_id'] = 'S'.$_POST['customer_id'].time();
-			$order = array (
-				'uid'=>$uid,
-				'customer_id'=>Input::post('customer_id'),
-				'product_info'=>Input::post('product_info'),
-				'amount'=>Input::post('amount'),
-				'order_id'=>Input::post('order_id'),
-				'track_service'=>Input::post('track_service'),
-				'send_from_id'=>Input::post('send_from_id'),
-				'send_to_id'=>Input::post('send_to_id'),
-				'type'=>Input::post('type'),
-				'weight'=>Input::post('weight'),
-				'weight_g'=>Input::post('weight_g'),
-				'create_time'=>time(),
-				);
-			$shipment->data($order);
-			$shipment->save();
-			$message = "保存成功";
-			break; 
 		case "del":
 			$save = $shipment::get(function($query) {
 				$query->where('id',Input::post('id'))->where('uid',Session::get('uid'));
