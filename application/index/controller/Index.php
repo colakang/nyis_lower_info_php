@@ -419,5 +419,106 @@ class Index extends Controller
 		return json_encode($list);
 	}
 
+    public function comment()
+    {
+
+	$mongo  = new Mongodb('avvo_lawyer_info','lawyers');
+	switch(Input::post('oper'))
+	{
+		case "save":
+			$con = array('avvo_id'=>Input::post('nyisId'));
+			$save = array();
+			if (Input::post('name'))
+				$save['name'] = Input::post('name');
+			if (Input::post('review'))
+				$save['review'] = Input::post('review');
+			if (Input::post('rank'))
+				$save['rank'] = Input::post('rank');
+			$save['createAt'] = time();
+			$result = $mongo->update(
+					$con,
+					array('$push' => array("comments" => $save))
+				);
+			var_dump($result);
+			return false;
+			if (!$result)
+				$message = 'Update Error!! Pls Check Again';
+			else 
+				$message = 'Update Success';
+			break;
+		case "get":
+			$nyisId = Input::param('nyisId');
+			$query = array('avvo_id'=>$nyisId);
+			$result = $mongo->collection->findOne($query,array('comments'=>1))->sort(array('avvo_id'=>1));
+			return json_encode($result);
+			break;
+		case "newAddress":
+			$address = array(
+					"name"=>Input::post('name'),
+					"address1"=>Input::post('address1'),
+					"address2"=>Input::post('address2'),
+					"city"=>Input::post('city'),
+					"state"=>Input::post('state'),
+					"zipcode"=>Input::post('zipcode'),
+					"phone"=>Input::post('phone'),
+					"uid"=>$uid,
+					);
+			$addressMd5 = md5(implode("-",$address)); 
+
+			$shipmentAddress = new \app\index\model\ShipmentAddress;
+			$md5 = $shipmentAddress::where('md5',$addressMd5)->value('id');
+			if (empty($md5))
+			{
+				$address['md5'] = $addressMd5;
+				$shipmentAddress = new \app\index\model\ShipmentAddress;
+				$shipmentAddress->data($address);
+				$shipmentAddress->save();
+				$message = $shipmentAddress->id;
+			} else {
+				$message = $md5;
+			}
+			break;
+		case "newLabel":
+			$shipment = new \app\index\model\Shipment;
+			if (!Input::post('customer_id')) $_POST['customer_id'] = 90000+$uid;
+			if (!Input::post('order_id')) $_POST['order_id'] = 'S'.$_POST['customer_id'].time();
+			$order = array (
+				'uid'=>$uid,
+				'customer_id'=>Input::post('customer_id'),
+				'product_info'=>Input::post('product_info'),
+				'amount'=>Input::post('amount'),
+				'order_id'=>Input::post('order_id'),
+				'track_service'=>Input::post('track_service'),
+				'send_from_id'=>Input::post('send_from_id'),
+				'send_to_id'=>Input::post('send_to_id'),
+				'type'=>Input::post('type'),
+				'weight'=>Input::post('weight'),
+				'weight_g'=>Input::post('weight_g'),
+				'create_time'=>time(),
+				);
+			$shipment->data($order);
+			$shipment->save();
+			$message = "保存成功";
+			break; 
+		case "del":
+			$save = $shipment::get(function($query) {
+				$query->where('id',Input::post('id'))->where('uid',Session::get('uid'));
+			});
+			if ($save->id == Input::post('id'))
+			{
+				$save->status = 9;
+				$save->save();
+				$message = '删除成功';
+			} else {
+				$message = '删除失败';
+			}
+			break;
+		default:
+			$message = "Opertion Not Found!";
+		
+	}
+	return $message;	
+    }
+
 
 }
