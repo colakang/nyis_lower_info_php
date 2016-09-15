@@ -30,7 +30,8 @@
               <input type="text" class="form-control input-lg search-input-choice" name="param2" placeholder='"DUI"– or –"John Smith"' autocomplete="off">
             </div>
             <div class="form-group">
-              <input type="text" class="form-control input-lg" name="param3" placeholder='"New York"- or -"CA"' autocomplete="off">
+              <input type="text" id="std-location" name="param3" style="display: none">
+              <input type="text" id="location" class="form-control input-lg" name="param4" placeholder='"New York"- or -"CA"' autocomplete="off">
             </div>
             <div class="form-group">
               <button type="submit" id="btn-slide1" class="btn btn-info1 btn-lg">搜索</button>
@@ -64,21 +65,21 @@
 <div class="container text-center content-container">
   <div class="row">
     <div class="col-md-4 thumbnail-container">
-      <a href="#">
+      <a href="http://lawyer.nyis.com/index/index/search_result?param1=name&param2=business&param3=">
         <div class="thumbnail-1st" style="background-image: url('/static/images/categori/business.jpg')">
           <h1 class="middle-caption high-contrast">商业</h1>
         </div>
       </a>
     </div>
     <div class="col-md-4 thumbnail-container">
-      <a href="#">
+      <a href="http://lawyer.nyis.com/index/index/search_result?param1=name&param2=family&param3=">
         <div class="thumbnail-1st" style="background-image: url('/static/images/categori/family.jpg')">
           <h1 class="middle-caption high-contrast">家庭</h1>
         </div>
       </a>
     </div>
     <div class="col-md-4 thumbnail-container">
-      <a href="#">
+      <a href="http://lawyer.nyis.com/index/index/search_result?param1=name&param2=immigration&param3=">
         <div class="thumbnail-1st" style="background-image: url('/static/images/categori/immigration.jpg')">
           <h1 class="middle-caption high-contrast">移民</h1>
         </div>
@@ -87,21 +88,21 @@
   </div>
   <div class="row">
     <div class="col-md-4 thumbnail-container">
-      <a href="#">
+      <a href="http://lawyer.nyis.com/index/index/search_result?param1=name&param2=criminal&param3=">
         <div class=" thumbnail-2nd" style="background-image: url('/static/images/categori/criminal.jpg')">
           <h1 class="middle-caption high-contrast">刑事</h1>
         </div>
       </a>
     </div>
     <div class="col-md-4 thumbnail-container">
-      <a href="#">
+      <a href="http://lawyer.nyis.com/index/index/search_result?param1=name&param2=transportation&param3=">
         <div class=" thumbnail-2nd" style="background-image: url('/static/images/categori/transportation-1.jpg')">
           <h1 class="middle-caption high-contrast">交通</h1>
         </div>
       </a>
     </div>
     <div class="col-md-4 thumbnail-container">
-      <a href="#">
+      <a href="http://lawyer.nyis.com/index/index/search_result?param1=name&param2=labor&param3=">
         <div class=" thumbnail-2nd" style="background-image: url('/static/images/categori/labor.jpg')">
           <h1 class="middle-caption high-contrast">劳工</h1>
         </div>
@@ -110,21 +111,21 @@
   </div>
   <div class="row">
     <div class="col-md-4 thumbnail-container">
-      <a href="#">
+      <a href="http://lawyer.nyis.com/index/index/search_result?param1=name&param2=real+estate&param3=">
         <div class=" thumbnail-2nd" style="background-image: url('/static/images/categori/landlord.jpg')">
           <h1 class="middle-caption high-contrast">地产</h1>
         </div>
       </a>
     </div>
     <div class="col-md-4 thumbnail-container">
-      <a href="#">
+      <a href="http://lawyer.nyis.com/index/index/search_result?param1=name&param2=leasing&param3=">
         <div class=" thumbnail-2nd" style="background-image: url('/static/images/categori/rent.jpg')">
           <h1 class="middle-caption high-contrast">租赁</h1>
         </div>
       </a>
     </div>
     <div class="col-md-4 thumbnail-container">
-      <a href="#">
+      <a href="http://lawyer.nyis.com/index/index/search_result?param1=name&param2=bankruptcy&param3=">
         <div class=" thumbnail-2nd" style="background-image: url('/static/images/categori/bankruptcy.jpg')">
           <h1 class="middle-caption high-contrast">破产</h1>
         </div>
@@ -133,7 +134,7 @@
   </div>
   <div class="row">
     <div class="col-md-2 col-md-offset-5">
-      <a href="#" class="btn btn-default btn-block"><h4>更多领域</h4></a>
+      <a href="http://lawyer.nyis.com/index/index/search_result?param1=name&param2=all&param3=" class="btn btn-default btn-block"><h4>更多领域</h4></a>
     </div>
   </div>
 </div>
@@ -210,8 +211,9 @@
 
 <script type="text/javascript" src="/static/js/jquery.js"></script>
 <script type="text/javascript" src="/static/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="/static/js/typeahead.jquery.min.js"></script>
-<script type="text/javascript" src="/static/js/search-form.js"></script>
+<script type="text/javascript" src="/static/js/typeahead.bundle.min.js"></script>
+<script type="text/javascript" src="/static/js/handlebars.min.js"></script>
+<script type="text/javascript" src="/static/js/autocomplete.js"></script>
 
 
 

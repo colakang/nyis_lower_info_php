@@ -164,9 +164,32 @@ class Index extends Controller
 		$param3 = isset($_GET['param3'])?$_GET['param3']:"";
 		$page = isset($_GET['page'])?$_GET['page']:"1";		//Current page number;
 		$views = isset($_GET['views'])?$_GET['views']:"10";	//Deafult views = 10
-		$nParam2 = str_replace("+",".*",$param2);
-		$nParam2 = str_replace(" ",".*",$nParam2);
-		$nParam2 = str_replace("%20",".*",$nParam2);
+		$jsonFile = file_get_contents(APP_PATH.'index/view/index/keyword.json');
+		$jfo = json_decode($jsonFile);
+		foreach ($jfo as $key => $value)
+		{
+			if (stristr(implode(",",$value),strtolower($param2)))
+			{
+				$nParam2 = $key;
+				$orCondition = array(
+							array("practice areas" => new \MongoRegex("/{$nParam2}/i")),
+						);
+				break;
+
+			}
+		}
+
+		if (empty($orCondition))
+		{
+			$nParam2 = str_replace("+",".*",$param2);
+			$nParam2 = str_replace(" ",".*",$nParam2);
+			$nParam2 = str_replace("%20",".*",$nParam2);
+			$orCondition = array(
+						array("name" => new \MongoRegex("/{$nParam2}.*/i")),
+						array("practice areas" => new \MongoRegex("/{$nParam2}.*/i"))
+					);
+
+		}
 		$mongo  = new Mongodb('avvo_lawyer_info','lawyers');
 		switch($page)
 		{
@@ -175,15 +198,16 @@ class Index extends Controller
 				$query = array(
 						'$and'=>array(
 								array(
-									'$or'=>array(
-										array("name" => new \MongoRegex("/{$nParam2}.*/i")),
-										array("practice areas" => new \MongoRegex("/{$nParam2}.*/i"))
-									)
+									'$or'=>$orCondition,
+//									'$or'=>array(
+//										array("name" => new \MongoRegex("/{$nParam2}.*/i")),
+//										array("practice areas" => new \MongoRegex("/{$nParam2}.*/i"))
+//									)
 								),
 								array(
 									'$or'=>array(
-										array("contact.address.state" => new \MongoRegex("/{$param3}.*/i")),
-										array("contact.address.city" => new \MongoRegex("/{$param3}.*/i"))
+										array("contact.address.state" => new \MongoRegex("/{$param3}/i")),
+										//array("contact.address.city" => new \MongoRegex("/{$param3}.*/i"))
 									),
 								),
 						)
@@ -199,15 +223,16 @@ class Index extends Controller
 				$query = array(
 						'$and'=>array(
 								array(
-									'$or'=>array(
-										array("name" => new \MongoRegex("/{$nParam2}.*/i")),
-										array("practice areas" => new \MongoRegex("/{$nParam2}.*/i"))
-									)
+									'$or'=>$orCondition,
+//									'$or'=>array(
+//										array("name" => new \MongoRegex("/{$nParam2}.*/i")),
+//										array("practice areas" => new \MongoRegex("/{$nParam2}.*/i"))
+//									)
 								),
 								array(
 									'$or'=>array(
-										array("contact.address.state" => new \MongoRegex("/{$param3}.*/i")),
-										array("contact.address.city" => new \MongoRegex("/{$param3}.*/i"))
+										array("contact.address.state" => new \MongoRegex("/{$param3}/i")),
+										//array("contact.address.city" => new \MongoRegex("/{$param3}.*/i"))
 									),
 								),
 						)
@@ -269,7 +294,9 @@ class Index extends Controller
 			$this->assign('start',$start);	//;
 			$this->assign('end',$end);	//;
 		}else{
-			return $this->error("未查询到相关律师信息！");
+			$this->assign('debug',0);	//Show Debug Info 1=true,0=false;
+			return $this->fetch('no_search_result');
+			//return $this->error("未查询到相关律师信息！");
 		}
 
 		if (Request::instance()->isAjax())
@@ -279,6 +306,17 @@ class Index extends Controller
 
 	public function test()
 	{
+		$jsonFile = file_get_contents(APP_PATH.'index/view/index/keyword.json');
+		$jfo = json_decode($jsonFile);
+		$words = '童';
+		foreach ($jfo as $key => $value)
+		{
+			if (stristr(implode(",",$value),strtolower($words)))
+				var_dump($key);
+		}
+		//$key = array_search(40489, array_column($userdb, 'uid'));
+		//var_dump($jfo->Arbitration);
+		exit();
 		$param1 = isset($_GET['param1'])?$_GET['param1']:"name";
 		$param2 = isset($_GET['param2'])?$_GET['param2']:"";
 		$param3 = isset($_GET['param3'])?$_GET['param3']:"";
@@ -441,15 +479,11 @@ class Index extends Controller
 					$con,
 					array('$push' => array("comments" => $save))
 				);
-			if ($result["ok"]!=1)
-				$message = 'Update Error!! Pls Check Again';
-			else 
-				$message = 'Update Success';
+			return json_encode($result);
 			break;
 		case "get":
 			$nyis_id = (int)Input::param('nyis_id');
 			$query = array('avvo_id'=>$nyis_id);
-			var_dump($query);
 			$result = $mongo->collection->findOne($query,array('comments'=>1,'name'=>1,'avvo_id'=>1,'rank'=>1));
 			//$result = $mongo->collection->findOne($query);
 			return json_encode($result);

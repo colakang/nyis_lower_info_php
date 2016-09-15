@@ -46,39 +46,9 @@
             <img src="/static/images/search_result/recommend-08.png">
           </div>
           <div class="rc-info-text text-center">
-            <img src="/static/images/search_result/lawyer1-01.png"> <!--头像-->
-            <h3>Charles D. Maurer, Jr.</h3> <!--名字-->
-            <p>南加州地区</p> <!--所在州-->
-            <!--评分-->
-            <i class="fa fa-star"></i>
-            <i class="fa fa-star"></i>
-            <i class="fa fa-star"></i>
-            <i class="fa fa-star"></i>
-            <i class="fa fa-star"></i>
-            <!--评价人数-->
-            <p style="display: inline-block">156</p>
-          </div>
-          <!--从业领域 若多于5个 选取前5个-->
-          <div class="practice-area-collection">
-            <ul>
-              <li class="practice-area-badge">商业诉讼</li>
-              <li class="practice-area-badge">地产交易</li>
-              <li class="practice-area-badge">刑事诉讼</li>
-              <li class="practice-area-badge">民事诉讼</li>
-              <li class="practice-area-badge">移民法</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-4">
-        <div class="rc-info-container">
-          <div class="rc-badge">
-            <img src="/static/images/search_result/recommend-08.png">
-          </div>
-          <div class="rc-info-text text-center">
             <img src="/static/images/search_result/lawyer2-01.png">
             <h3>Anjali Devudu</h3>
-            <p>纽约、新泽西地区</p>
+            <p>新泽西地区</p>
             <i class="fa fa-star"></i>
             <i class="fa fa-star"></i>
             <i class="fa fa-star"></i>
@@ -95,6 +65,36 @@
         </div>
       </div>
       <div class="col-md-4">
+      <div class="rc-info-container">
+        <div class="rc-badge">
+          <img src="/static/images/search_result/recommend-08.png">
+        </div>
+        <div class="rc-info-text text-center">
+          <img src="/static/images/search_result/lawyer1-01.png"> <!--头像-->
+          <h3>Charles D. Maurer, Jr.</h3> <!--名字-->
+          <p>新泽西地区</p> <!--所在州-->
+          <!--评分-->
+          <i class="fa fa-star"></i>
+          <i class="fa fa-star"></i>
+          <i class="fa fa-star"></i>
+          <i class="fa fa-star"></i>
+          <i class="fa fa-star"></i>
+          <!--评价人数-->
+          <p style="display: inline-block">156</p>
+        </div>
+        <!--从业领域 若多于5个 选取前5个-->
+        <div class="practice-area-collection">
+          <ul>
+            <li class="practice-area-badge">商业诉讼</li>
+            <li class="practice-area-badge">地产交易</li>
+            <li class="practice-area-badge">刑事诉讼</li>
+            <li class="practice-area-badge">民事诉讼</li>
+            <li class="practice-area-badge">移民法</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+      <div class="col-md-4">
         <div class="rc-info-container">
           <div class="rc-badge">
             <img src="/static/images/search_result/recommend-08.png">
@@ -102,7 +102,7 @@
           <div class="rc-info-text text-center">
             <img src="/static/images/search_result/lawyer3-01.png">
             <h3>Carly Wiskoff</h3>
-            <p>纽约、新泽西地区</p>
+            <p>新泽西地区</p>
             <i class="fa fa-star"></i>
             <i class="fa fa-star"></i>
             <i class="fa fa-star"></i>
@@ -122,85 +122,13 @@
   </div>
 </div>
 
-
-<!--搜索结果 一页显示10-->
-<div class="container">
-  <div class="search-result-list col-md-9" id='result'>
-	<input type="hidden" id="param1" value="{$param1}" />
-	<input type="hidden" id="param2" value="{$param2}" />
-	<input type="hidden" id="param3" value="{$param3}" />
-    <ul>
-	{volist name="list" id="list"}
-      <li class="search-list-block">
-        <div class="row">
-          <div class="search-result-portrait col-md-2">
-            <img src="/static/images/search_result/profile-07.png"> <!--搜索结果头像-->
-          </div>
-          <div class="col-md-6">
-            <h4>{$list.name}</h4> <!--名字-->
-            <p>{$list.city}</p> <!--所在地-->
-            <!--评分-->
-            <div>
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-            </div>
-			<span id="nyis_id" style="display:none">{$list.nyis_id}</span>
-            <!--从业领域 若多于5个 选取前五个-->
-            <div class="practice-area-collection">
-              <ul>
-				<?php 
-					if(!empty($list['practice'][0])){
-						echo "<li class='practice-area-badge'>" . $list['practice'][0] . "</li>";
-					} 
-					if(!empty($list['practice'][1])){
-						echo "<li class='practice-area-badge'>" . $list['practice'][1] . "</li>";
-					}
-					if(!empty($list['practice'][2])){
-						echo "<li class='practice-area-badge'>" . $list['practice'][2] . "</li>";
-					}
-					if(!empty($list['practice'][3])){
-						echo "<li class='practice-area-badge'>" . $list['practice'][3] . "</li>";
-					}
-					if(!empty($list['practice'][4])){
-						echo "<li class='practice-area-badge'>" . $list['practice'][4] . "</li>";
-					}
-				?>
-              </ul>
-            </div>
-          </div>
-          <div class="col-md-4">
-            <!-- 联系电话 若没有 不显示-->
-            <div>
-              <br>
-              <i class="glyphicon glyphicon-phone-alt"></i> {$list.phone}
-            </div>
-            <!--转入详情页-->
-            <a href="/index/index/profile/nyis_id/{$list.nyis_id}" class="btn btn-default">查看详情</a>
-          </div>
-        </div>
-      </li>
-	{/volist}
-    </ul>
-    <nav class="text-center">
-      <!--分页栏-->
-      <ul class="pagination">
-
-        	<li><a aria-label="上一页" onclick="goPage('up',{$page},{$pages},{$views});" value="#"><span aria-hidden="true" >&laquo;</span></a></li>
-	{for start="$start" comparison="elt"   end="$end"}
-		{eq name="page" value="$i"}
-        		<li class="active"><a href="javascript:void(0)">{$i}</a></li>
-		{else/}
-        		<li ><a onclick="goPage('go',{$i},{$pages},{$views});" ><span aria-hidden="true" >{$i}</span></a></li>
-		{/eq}
-	{/for}
-        	<li><a aria-label="下一页" onclick="goPage('next',{$page},{$pages},{$views});" value="#"><span aria-hidden="true" >&raquo;</span></a></li>
-      </ul>
-    </nav>
-  </div>
-  <div class="col-md-3">
+<div class="no-search-container">
+  <div class="container text-center">
+    <h1><strong>咦？什么都没搜到...</strong></h1>
+    <br><br>
+    <a href="http://lawyer.nyis.com"><img class="no-result-icon" src="/static/images/search_result/question.png"></a>
+    <br><br>
+    <a href="http://lawyer.nyis.com"> <h3><strong>换个词试试，重新搜索</strong><img class="redo-icon" src="/static/images/search_result/redo.png"> </h3></a>
   </div>
 </div>
 

@@ -1,6 +1,8 @@
 /*
  * Created by Shaochen on 7/14/2016.
  */
+var url_token = window.location.href.split("/");
+var id = url_token[url_token.length - 1];
 var reviewScore = 0;
 var initRateYo = function(){
   $("#rateYo").rateYo({
@@ -25,10 +27,23 @@ initRateYo();
 
 angular.
 module('lawyerRate', []).
-controller('reviewCtrl', ['$scope', function ($scope) {
+controller('reviewCtrl', ['$scope','$http', function ($scope, $http) {
+  $scope.avgScore = 0;
   $scope.lawyerName = document.getElementById("lawyer_name").innerHTML;
   $scope.reviewlist = [];
   $scope.showNum = 5;
+  var getUrl = "http://lawyer.nyis.com/index/index/comment/oper/get/nyis_id/"+ id;
+  $scope.getReviewList = function(){
+    $http.get(getUrl).then(function(response){
+    $scope.reviewlist = response.data.comments;
+    for(var i = 0; i < $scope.reviewlist.length; i++){
+      $scope.avgScore += Number($scope.reviewlist[i].rank);
+    }
+    $scope.avgScore /= $scope.reviewlist.length;
+    console.log($scope.avgScore);
+  });
+  };
+  $scope.getReviewList();
   /*var review = {
     score: 5,
     author: '小丸子',
@@ -65,22 +80,26 @@ controller('reviewCtrl', ['$scope', function ($scope) {
     return array;
   }
   $scope.isDecimal = function (num) {
-    return num !== Math.round(num);
+    return num != Math.round(num);
   };
   $scope.showMore = function(){
     $scope.showNum += 5;
   };
 }]).
-controller('writeReviewCtrl',['$scope', function ($scope) {
+controller('writeReviewCtrl',['$scope', '$http', function ($scope, $http) {
   $scope.addReview = function () {
-    var date = new Date();
     var review = {};
-    review.author = "anonymous";
-    review.time = (date.getMonth() + 1).toString() + "-" + date.getDate().toString() + "-"
-      + date.getFullYear().toString();
-    review.score = reviewScore;
-    review.content = $scope.content;
-    $scope.reviewlist.splice(0, 0, review);
+    review.oper = 'save';
+    review.nyis_id = id;
+    review.name = $scope.author;
+    review.rank = reviewScore;
+    review.review = $scope.content;
+    console.log(review);
+    url = "http://lawyer.nyis.com/index/index/comment/oper/save/name/" + review.name + "/review/" + review.review + "/rank/" + review.rank.toString() + "/nyis_id/" + id.toString();
+    console.log(url);
+    $http.get(url).then(function(response){
+      $scope.getReviewList();
+    });
     $scope.content = "";
     reviewScore = 0;
   }

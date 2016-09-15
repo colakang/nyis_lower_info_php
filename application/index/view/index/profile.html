@@ -27,7 +27,7 @@
             <i class="glyphicon glyphicon-phone-alt"></i> {$phone}
           </div>
         </div>
-        <p>{$city},{$state},{$zipcode}</p>
+        <p>{$city}, {$state}, {$zipcode}</p>
         <div class="practice-area-collection" style="margin-left: 0">
           <ul>
             <!-- <li class="practice-area-badge">移民</li>
@@ -54,13 +54,11 @@
 			?>
           </ul>
         </div>
-        <div>
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star"></i>
-          <p style="display: inline-block">156</p>
+        <div ng-cloak>
+          <i class="fa fa-star" ng-repeat="i in getRange(0, avgScore)"></i>
+          <i class="fa fa-star-half-o" ng-if="isDecimal(avgScore)"></i>
+          <i class="fa fa-star-o" ng-repeat="i in getRange(avgScore, 5)"></i>
+          <p style="display: inline-block">{{reviewlist.length}}</p>
         </div>
       </div>
     </div>
@@ -87,34 +85,32 @@
       </div>
     </div>
   </div>
-  <div class="container text-center review-container">
+  <div class="container text-center review-container" ng-cloak>
     <h1>律师点评</h1>
     <br>
     <div>
-      <i class="fa fa-star"></i>
-      <i class="fa fa-star"></i>
-      <i class="fa fa-star"></i>
-      <i class="fa fa-star"></i>
-      <i class="fa fa-star"></i>
-      <p style="display: inline-block">156</p>
+      <i class="fa fa-star" ng-repeat="i in getRange(0, avgScore)"></i>
+      <i class="fa fa-star-half-o" ng-if="isDecimal(avgScore)"></i>
+      <i class="fa fa-star-o" ng-repeat="i in getRange(avgScore, 5)"></i>
+      <p style="display: inline-block" ng-cloak>{{reviewlist.length}}</p>
     </div>
     <br>
     <a href="#" class="btn btn-default btn-customized" data-toggle="modal" data-target="#myModal1">写点评</a>
     <br>
         <ul class="review-list">
-      <li class="col-md-10 col-md-offset-1" ng-repeat="review in reviewlist track by $index" ng-show="$index < showNum">
+      <li class="col-md-10 col-md-offset-1" ng-repeat="review in reviewlist | orderBy: '-createAt' track by $index" ng-show="$index < showNum">
         <div>
           <div class="col-md-3" style="text-align: left">
             <div>
-              <i class="fa fa-star" ng-repeat="i in getRange(0, review.score)"></i>
-	      <i class="fa fa-star-half-o" ng-if="isDecimal(review.score)"></i>
-              <i class="fa fa-star-o" ng-repeat="i in getRange(review.score, 5)"></i>
+              <i class="fa fa-star" ng-repeat="i in getRange(0, review.rank)"></i>
+	      <i class="fa fa-star-half-o" ng-if="isDecimal(review.rank)"></i>
+              <i class="fa fa-star-o" ng-repeat="i in getRange(review.rank, 5)"></i>
             </div>
-            <p>由 {{review.author}}</p>
-            <p>发布于 {{review.time}}</p>
+            <p ng-cloak>由 {{review.name}}</p>
+            <p ng-cloak>发布于 {{review.createAt | date: 'MM-dd-yyyy'}}</p>
           </div>
           <div class="col-md-9" style="text-align: left">
-	    <p>{{review.content}}</p>
+	    <p ng-cloak>{{review.review}}</p>
           </div>
         </div>
       </li>
@@ -328,6 +324,8 @@
           <div id="rateYo"></div>
         </div>
         <div class="modal-body">
+          <label>姓名</label><input type="text" class="form-control" ng-model="author"/>
+          <br>
           <textarea class="form-control comment-box" name="review" row="20" ng-model="content"></textarea>
         </div>
         <div class="modal-footer">
