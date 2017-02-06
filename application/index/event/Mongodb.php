@@ -10,7 +10,7 @@ class Mongodb
      * @param string $sheet
      */
 	public function __construct($dbname,$sheet){
-		$this->mongo = new \MongoClient("mongodb://nyis:Nyis2016!%user@23.239.12.49:27017");
+		$this->mongo = new \MongoClient("");
 		$this->db = $this->mongo->$dbname;
 		$this->collection = $this->db->$sheet;
 	}
